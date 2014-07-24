@@ -4,10 +4,9 @@
 namespace core
 {
 	Font::Font(const std::string& fontName)
-		: IDrawable(nullptr)
+		: IRenderable(nullptr)
 		, m_fontName(fontName)
 		, m_font(nullptr)
-		, m_texture(nullptr)
 		, m_fontSize(25)
 	{
 
@@ -38,16 +37,6 @@ namespace core
 		return ResourceType::FONT;
 	}
 
-	vec2i Font::GetSize()
-	{
-		return m_textureSize;
-	}
-
-	SDL_Texture* Font::GetTexture()
-	{
-		return m_texture;
-	}
-
 	void Font::Write(SDL_Renderer* renderer, const std::string& text, const vec2i& pos, const SDL_Color& color)
 	{
 		SDL_Surface* surface = TTF_RenderText_Solid(m_font, text.c_str(), color);
@@ -58,8 +47,8 @@ namespace core
 
 		m_texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-		SDL_QueryTexture(m_texture, NULL, NULL, &m_textureSize.first, &m_textureSize.second);
-		m_rect = { pos.first, pos.second, m_textureSize.first, m_textureSize.second };
+		SDL_QueryTexture(m_texture, NULL, NULL, &m_size.first, &m_size.second);
+		m_rect = { pos.first, pos.second, m_size.first, m_size.second };
 	}
 
 	SDL_Rect Font::GetRect() const

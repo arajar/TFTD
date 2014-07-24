@@ -9,10 +9,13 @@
 #include <memory>
 #include <vector>
 #include <stack>
-#include <iostream>
 #include <map>
 #include <ctime>
 #include <functional>
+#include <fstream>
+#include <sstream>
+#include <iostream>
+#include <algorithm>
 
 #include "sdl.h"
 #include "sdl_image.h"

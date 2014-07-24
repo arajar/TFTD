@@ -15,18 +15,65 @@ public:
 	virtual ResourceType GetType() = 0;
 };
 
-class IDrawable
+class ITransform
 {
 public:
-	IDrawable(SDL_Renderer* renderer) : m_renderer(renderer) {}
+	virtual void SetPosition(const vec2i& position)
+	{
+		m_position = position;
+	}
 
-	virtual std::pair<int, int> GetSize() = 0;
-	virtual SDL_Texture* GetTexture() = 0;
+	virtual const vec2i& GetPosition() const
+	{
+		return m_position;
+	}
 
-	virtual void Render() = 0;
+protected:
+	vec2i m_position;
+};
+
+class IRenderable : public ITransform
+{
+public:
+	IRenderable(SDL_Renderer* renderer) : m_renderer(renderer), m_texture(nullptr) {}
+
+	virtual const vec2i& GetSize() const
+	{
+		return m_size;
+	}
+
+	virtual SDL_Texture* GetTexture()
+	{
+		return m_texture;
+	}
+
+	virtual void Render()
+	{
+		const int x = m_position.first;
+		const int y = m_position.second;
+		const int w = m_size.first;
+		const int h = m_size.second;
+
+		SDL_Rect dst = { x, y, w, h };
+
+		SDL_RenderCopy(m_renderer, m_texture, NULL, &dst);
+	}
+
+	void SetLayer(int layer)
+	{
+		m_layer = layer;
+	}
+
+	int GetLayer() const
+	{
+		return m_layer;
+	}
 
 protected:
 	SDL_Renderer* m_renderer;
+	SDL_Texture* m_texture;
+	vec2i m_size;
+	int m_layer;
 };
 
 class IText

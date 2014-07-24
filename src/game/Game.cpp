@@ -5,7 +5,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 Game::Game()
-: m_gameConfig(nullptr)
+: m_gameConfig("config.cfg")
 {
 
 }
@@ -23,11 +23,9 @@ bool Game::Init()
 	Engine::Init();
 
 	bool initialized = false;
-	m_gameConfig = new GameConfig("config.json");
-	if (m_gameConfig->Init())
+	if (m_gameConfig.Init())
 	{
-		Engine::Resize(m_gameConfig->GetWindowWidth(), m_gameConfig->GetWindowHeight());
-
+		Engine::Resize(m_gameConfig["screen.width"], m_gameConfig["screen.height"]);
 		initialized = true;
 	}
 

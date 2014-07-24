@@ -4,11 +4,8 @@
 namespace core
 {
 	Image::Image(const std::string& name, SDL_Renderer* renderer)
-		: IDrawable(renderer)
+		: IRenderable(renderer)
 		, m_name(name)
-		, m_width(0)
-		, m_height(0)
-		, m_texture(nullptr)
 	{
 	}
 
@@ -28,9 +25,7 @@ namespace core
 			return nullptr;
 		}
 
-		m_width = surface->w;
-		m_height = surface->h;
-
+		m_size = std::make_pair(surface->w, surface->h);
 		m_texture = SDL_CreateTextureFromSurface(ContentManager::GetInstance()->GetRenderer(), surface);
 		if (m_texture == nullptr)
 		{
@@ -46,20 +41,5 @@ namespace core
 	ResourceType Image::GetType()
 	{
 		return ResourceType::IMAGE;
-	}
-
-	vec2i Image::GetSize()
-	{
-		return std::make_pair(m_width, m_height);
-	}
-
-	SDL_Texture* Image::GetTexture()
-	{
-		return m_texture;
-	}
-
-	void Image::Render()
-	{
-		SDL_RenderCopy(m_renderer, m_texture, nullptr, nullptr);
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace core
 {
-	class Font : public IResource, public IDrawable, public IText
+	class Font : public IResource, public IRenderable, public IText
 	{
 	public:
 		Font(const std::string& fontName);
@@ -11,10 +11,6 @@ namespace core
 	public: // IResource interface
 		virtual bool Load() override;
 		virtual ResourceType GetType() override;
-	
-	public:
-		virtual vec2i GetSize() override;
-		virtual SDL_Texture* GetTexture() override;
 
 	public: // IText interface
 		virtual void Write(SDL_Renderer* renderer, const std::string& text, const vec2i& pos, const SDL_Color& color) override;
@@ -25,8 +21,6 @@ namespace core
 		const int m_fontSize;
 	
 		TTF_Font* m_font;
-		SDL_Texture* m_texture;
 		SDL_Rect m_rect;
-		vec2i m_textureSize;
 	};
 }

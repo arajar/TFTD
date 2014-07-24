@@ -2,60 +2,95 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-class GameConfig
+struct ConfigData
+{
+	std::string m_data;
+
+	operator int() const
+	{
+		return this->AsInt();
+	}
+
+	operator float() const
+	{
+		return this->AsFloat();
+	}
+
+	operator bool() const
+	{
+		return this->AsBool();
+	}
+
+	operator void() const
+	{}
+
+	operator std::string() const
+	{
+		return m_data;
+	}
+
+	int AsInt() const
+	{
+		return m_data.empty() ? -1 : std::stoi(m_data);
+	}
+
+	float AsFloat() const
+	{
+		return m_data.empty() ? -1.f : std::stof(m_data);
+	}
+
+	bool AsBool() const
+	{
+		return m_data == "true" ? true : false;
+	}
+
+	ConfigData()
+		: m_data("") {}
+
+	ConfigData(const std::string& data)
+		: m_data(data) {}
+
+	ConfigData(const char* data)
+		: m_data(data) {}
+
+	ConfigData(int data)
+		: m_data(std::to_string(data)) {}
+
+	ConfigData(float data)
+		: m_data(std::to_string(data)) {}
+
+	ConfigData(bool data)
+	{
+		if (data)
+		{
+			m_data = "true";
+		}
+		else
+		{
+			m_data = "false";
+		}
+	}
+};
+
+//////////////////////////////////////////////////////////////////////////
+
+class GameConfig : public std::map < std::string, ConfigData >
 {
 public:
-	typedef std::map<int, int> ScoreMap;
-
-public:
-	GameConfig(const std::string& configFile);
+	GameConfig(std::string configFile);
 	virtual ~GameConfig();
 
 public:
 	bool Init();
+	bool Save();
 
-public:
-	const std::string& GetPath() const;
-	int GetWindowWidth() const;
-	int GetWindowHeight() const;
-	const std::vector<std::string>& GetTiles() const;
-	const std::string& GetBackground() const;
+protected:
+	bool Serialize();
+	bool Deserialize();
 
-	const std::string& GetFontName() const;
-	int GetFontSize() const;
-
-	int GetTileSize() const;
-	int GetNumRows() const;
-	int GetNumCols() const;
-	const vec2i& GetGameplayArea() const;
-	uint GetGameTime() const;
-	int GetMinSequence() const;
-
-	const ScoreMap& GetScoreMap() const;
-	const std::vector<vec2f> GetDynamitePath() const;
-
-private:
+protected:
 	const std::string m_configFile;
 
-	std::string m_pathToGfx;
-
-	int m_windowWidth;
-	int m_windowHeight;
-
-	std::string m_fontName;
-	int m_fontSize;
-	std::vector<std::string> m_tiles;
-	std::string m_backgroundImage;
-
-	int m_tileSize;
-	int m_columns;
-	int m_rows;
-	vec2i m_gameplayArea;
-	uint m_time;
-	int m_minSequence;
-	ScoreMap m_scores;
-	
-	std::vector<vec2f> m_dynamitePath;
 };
 
 //////////////////////////////////////////////////////////////////////////
