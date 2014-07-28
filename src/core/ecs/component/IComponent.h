@@ -4,12 +4,19 @@ namespace core
 {
 	namespace ecs
 	{
-		class IComponent
+		class Component
 		{
 		public:
-			IComponent() {};
-			virtual ~IComponent() {};
-		
+			Component()
+			{
+				this->OnCreate();
+			}
+
+			virtual ~Component() 
+			{
+				this->OnDestroy();
+			}
+
 		public:
 			virtual void Update(Uint32 deltaTime) = 0;
 
@@ -18,21 +25,6 @@ namespace core
 			virtual void OnAttach() {};
 			virtual void OnRemove() {};
 			virtual void OnDestroy() {};
-		};
-
-		template <class C>
-		class Component : public IComponent
-		{
-		public:
-			Component()
-			{
-				this->OnCreate();
-			}
-
-			virtual ~Component()
-			{
-				this->OnDestroy();
-			}
 		};
 	}
 }

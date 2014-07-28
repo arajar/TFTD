@@ -18,18 +18,18 @@ public:
 class ITransform
 {
 public:
-	virtual void SetPosition(const vec2i& position)
+	virtual void SetPosition(const glm::ivec2& position)
 	{
 		m_position = position;
 	}
 
-	virtual const vec2i& GetPosition() const
+	virtual const glm::ivec2& GetPosition() const
 	{
 		return m_position;
 	}
 
 protected:
-	vec2i m_position;
+	glm::ivec2 m_position;
 };
 
 class IRenderable : public ITransform
@@ -37,7 +37,7 @@ class IRenderable : public ITransform
 public:
 	IRenderable(SDL_Renderer* renderer) : m_renderer(renderer), m_texture(nullptr) {}
 
-	virtual const vec2i& GetSize() const
+	virtual const glm::ivec2& GetSize() const
 	{
 		return m_size;
 	}
@@ -49,10 +49,10 @@ public:
 
 	virtual void Render()
 	{
-		const int x = m_position.first;
-		const int y = m_position.second;
-		const int w = m_size.first;
-		const int h = m_size.second;
+		const int x = m_position.x;
+		const int y = m_position.y;
+		const int w = m_size.x;
+		const int h = m_size.y;
 
 		SDL_Rect dst = { x, y, w, h };
 
@@ -72,13 +72,13 @@ public:
 protected:
 	SDL_Renderer* m_renderer;
 	SDL_Texture* m_texture;
-	vec2i m_size;
+	glm::ivec2 m_size;
 	int m_layer;
 };
 
 class IText
 {
 public:
-	virtual void Write(SDL_Renderer* renderer, const std::string& text, const std::pair<int, int>& pos, const SDL_Color& color) = 0;
+	virtual void Write(SDL_Renderer* renderer, const std::string& text, const glm::ivec2& pos, const SDL_Color& color) = 0;
 	virtual SDL_Rect GetRect() const = 0;
 };

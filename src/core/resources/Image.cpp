@@ -25,7 +25,7 @@ namespace core
 			return nullptr;
 		}
 
-		m_size = std::make_pair(surface->w, surface->h);
+		m_size = glm::ivec2(surface->w, surface->h);
 		m_texture = SDL_CreateTextureFromSurface(ContentManager::GetInstance()->GetRenderer(), surface);
 		if (m_texture == nullptr)
 		{

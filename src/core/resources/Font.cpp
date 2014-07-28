@@ -37,7 +37,7 @@ namespace core
 		return ResourceType::FONT;
 	}
 
-	void Font::Write(SDL_Renderer* renderer, const std::string& text, const vec2i& pos, const SDL_Color& color)
+	void Font::Write(SDL_Renderer* renderer, const std::string& text, const glm::ivec2& pos, const SDL_Color& color)
 	{
 		SDL_Surface* surface = TTF_RenderText_Solid(m_font, text.c_str(), color);
 		if (m_texture)
@@ -47,8 +47,8 @@ namespace core
 
 		m_texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-		SDL_QueryTexture(m_texture, NULL, NULL, &m_size.first, &m_size.second);
-		m_rect = { pos.first, pos.second, m_size.first, m_size.second };
+		SDL_QueryTexture(m_texture, NULL, NULL, &m_size.x, &m_size.y);
+		m_rect = { pos.x, pos.y, m_size.x, m_size.y };
 	}
 
 	SDL_Rect Font::GetRect() const

@@ -13,7 +13,7 @@ namespace core
 		virtual ResourceType GetType() override;
 
 	public: // IText interface
-		virtual void Write(SDL_Renderer* renderer, const std::string& text, const vec2i& pos, const SDL_Color& color) override;
+		virtual void Write(SDL_Renderer* renderer, const std::string& text, const glm::ivec2& pos, const SDL_Color& color) override;
 		virtual SDL_Rect GetRect() const override;
 
 	private:

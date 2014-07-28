@@ -27,5 +27,10 @@ namespace core
 				comp->Update(deltaTime);
 			}
 		}
+
+		const std::string& Entity::GetName() const
+		{
+			return m_name;
+		}
 	}
 }

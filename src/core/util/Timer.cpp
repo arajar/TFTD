@@ -54,9 +54,9 @@ namespace core
 			}
 		}
 
-		uint Timer::GetTicks() const
+		Uint32 Timer::GetTicks() const
 		{
-			uint time = 0;
+			Uint32 time = 0;
 
 			if (m_status == Status::STARTED)
 			{

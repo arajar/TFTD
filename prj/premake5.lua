@@ -20,6 +20,7 @@ project "TFTD"
 	local SDL_MIX = "SDL2_mixer-2.0.0"
 	local SDL_TTF = "SDL2_ttf-2.0.12"
 	local SDL_IMG = "SDL2_image-2.0.0"
+	local GLM	  = "glm"
 
 	uuid "BDF8292E-B782-41BC-966F-8F8DEF9F9D87"
 	targetdir("../release/" )
@@ -41,6 +42,7 @@ project "TFTD"
 		"../libs/"..SDL_MIX.."/include",
 		"../libs/"..SDL_TTF.."/include",
 		"../libs/"..SDL_IMG.."/include",
+		"../libs/"..GLM.."/glm",
 	}
 
 	libdirs 

@@ -21,9 +21,10 @@
 #include "sdl_image.h"
 #include "sdl_ttf.h"
 
-typedef unsigned int uint;
-typedef std::pair<int, int> vec2i;
-typedef std::pair<float, float> vec2f;
+#include "glm.hpp"
+#include "gtc/matrix_transform.hpp"
+#include "gtc/quaternion.hpp"
+#include "gtx/quaternion.hpp"
 
 #include "core/Singleton.h"
 #include "core/GameException.h"
@@ -32,27 +33,3 @@ typedef std::pair<float, float> vec2f;
 #include "core/util/Timer.h"
 #include "core/util/Tweener.h"
 
-// Useful operators for std::pair
-template <typename T1, typename T2>
-std::pair<T1, T2> operator+(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2)
-{
-	return std::pair<T1, T2>(p1.first + p2.first, p1.second + p2.second);
-}
-
-template <typename T1, typename T2>
-std::pair<T1, T2> operator-(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2)
-{
-	return std::pair<T1, T2>(p1.first - p2.first, p1.second - p2.second);
-}
-
-template <typename T1, typename T2>
-std::pair<T1, T2> operator*(const std::pair<T1, T2>& p1, const std::pair<T1, T2>& p2)
-{
-	return std::pair<T1, T2>(p1.first * p2.first, p1.second * p2.second);
-}
-
-template <typename T1, typename T2, typename T3>
-std::pair<T1, T2> operator*(const std::pair<T1, T2>& p1, T3 p2)
-{
-	return std::pair<T1, T2>(static_cast<T1>(static_cast<T3>(p1.first) * p2), static_cast<T2>(static_cast<T3>(p1.second) * p2));
-}
