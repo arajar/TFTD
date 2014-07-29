@@ -2,6 +2,9 @@
 #include "Game.h"
 #include "config\GameConfig.h"
 
+#include "GameEntity.h"
+#include "Transform.h"
+
 //////////////////////////////////////////////////////////////////////////
 
 Game::Game()

@@ -24,7 +24,7 @@ namespace core
 			{
 				if (m_components.size() < s_maxComponents)
 				{
-					m_components.push_back(new C);
+					m_components.push_back(new C());
 					return true;
 				}
 
@@ -61,17 +61,17 @@ namespace core
 			}
 
 			template <typename C = Component>
-			bool RemoveComponent() const
+			bool RemoveComponent()
 			{
 				auto it = m_components.begin();
 				auto end = m_components.end();
 
 				for (it; it != end; it++)
 				{
-					if (reinterpret_cast<C>(it))
+					if (reinterpret_cast<C*>(*it))
 					{
-						it->OnRemove();
-						m_components.erase(m_components.begin(), m_components.end(), it);
+						(*it)->OnRemove();
+						m_components.erase(it);
 						return true;
 					}
 				}
