@@ -2,8 +2,6 @@
 #include "Game.h"
 #include "config\GameConfig.h"
 
-#include "GameEntity.h"
-#include "Transform.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -24,6 +22,13 @@ Game::~Game()
 bool Game::Init()
 {
 	Engine::Init();
+
+	auto rs = new core::RenderSystem;
+	rs->AddRequirement<core::Transform>();
+
+	m_world.AddSystem(rs);
+	auto e = m_world.CreateEntity("derp");
+	e->AddComponent<core::Transform>();
 
 	bool initialized = false;
 	if (m_gameConfig.Init())
@@ -46,12 +51,15 @@ void Game::HandleEvents(const SDL_Event& event)
 void Game::Update(Uint32 deltaTime)
 {
 	Engine::Update(deltaTime);
+
+	m_world.Update(deltaTime);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void Game::RenderFrame()
 {
+	m_world.Render();
 }
 
 //////////////////////////////////////////////////////////////////////////

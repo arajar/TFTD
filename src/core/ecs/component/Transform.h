@@ -1,11 +1,14 @@
 #pragma once
 
-#include "IComponent.h"
+#include "Component.h"
 
 namespace core
 {
 	class Transform : public ecs::Component
 	{
+	public:
+		static std::string Type;
+
 	public:
 		Transform();
 		Transform(const glm::vec3& pos);
@@ -32,5 +35,4 @@ namespace core
 		glm::vec3 m_scale;
 		glm::quat m_rotation;
 	};
-
 }

@@ -1,19 +1,17 @@
 #pragma once
-#include "IComponent.h"
+#include "Component.h"
 
 namespace core
 {
 	namespace ecs
 	{
+		class System;
+
 		class Entity
 		{
 		public:
 			Entity(const std::string& name);
 			virtual ~Entity();
-
-		public:
-			virtual void Init() = 0;
-			virtual void Update(Uint32 deltaTime);
 
 		public:
 			const std::string& GetName() const;
@@ -24,7 +22,7 @@ namespace core
 			{
 				if (m_components.size() < s_maxComponents)
 				{
-					m_components.push_back(new C());
+					m_components.push_back(new C);
 					return true;
 				}
 
@@ -78,6 +76,8 @@ namespace core
 
 				return false;
 			}
+
+			const std::vector<Component*>& GetComponents();
 
 		protected:
 			static const unsigned int s_maxComponents = 64;

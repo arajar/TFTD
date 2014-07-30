@@ -5,9 +5,11 @@
 #define STRING(x) STRING2(x)
 #define TODO(msg) __pragma( message (__FILE__ "[" STRING(__LINE__) "] --- TODO: " msg ))
 
+#include <typeinfo>
 #include <string>
 #include <memory>
 #include <vector>
+#include <set>
 #include <stack>
 #include <map>
 #include <ctime>
@@ -33,3 +35,4 @@
 #include "core/util/Timer.h"
 #include "core/util/Tweener.h"
 
+#include "core/ecs/ecs.h"

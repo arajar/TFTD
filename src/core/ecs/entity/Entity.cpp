@@ -20,17 +20,14 @@ namespace core
 			m_components.clear();
 		}
 
-		void Entity::Update(Uint32 deltaTime)
-		{
-			for (auto comp : m_components)
-			{
-				comp->Update(deltaTime);
-			}
-		}
-
 		const std::string& Entity::GetName() const
 		{
 			return m_name;
+		}
+
+		const std::vector<Component*>& Entity::GetComponents()
+		{
+			return m_components;
 		}
 	}
 }

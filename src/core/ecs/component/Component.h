@@ -4,21 +4,20 @@ namespace core
 {
 	namespace ecs
 	{
+
+#define COMPONENT_NAME(x) #x
+
 		class Component
 		{
 		public:
-			Component()
-			{
-				this->OnCreate();
-			}
-
-			virtual ~Component() 
-			{
-				this->OnDestroy();
-			}
+			static std::string Type;
 
 		public:
-			virtual void Update(Uint32 deltaTime) = 0;
+			Component();
+			virtual ~Component();
+			
+		public:
+			virtual void Update(Uint32 deltaTime) {};
 
 		public:
 			virtual void OnCreate() {};

@@ -7,12 +7,24 @@ namespace core
 	namespace ecs
 	{
 		System::System()
+			: m_type(SystemType::None)
+			, m_priority(-1)
 		{
 		}
 
 		System::~System()
 		{
 			m_entities.clear();
+		}
+
+		const SystemType System::GetType() const
+		{
+			return m_type;
+		}
+
+		const int System::GetPriority() const
+		{
+			return m_priority;
 		}
 
 		bool System::AddEntity(Entity* entity)
@@ -36,6 +48,20 @@ namespace core
 				return true;
 			}
 	
+			return false;
+		}
+
+		bool System::Requires(std::vector<Component*> requirements) const
+		{
+			for (auto& req : requirements)
+			{
+				auto found = std::find(m_requirements.begin(), m_requirements.end(), Component::Type);
+				if (found != m_requirements.end())
+				{
+					return true;
+				}
+			}
+
 			return false;
 		}
 	}
