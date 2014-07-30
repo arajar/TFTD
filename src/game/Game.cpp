@@ -23,12 +23,14 @@ bool Game::Init()
 {
 	Engine::Init();
 
-	auto rs = new core::RenderSystem;
-	rs->AddRequirement<core::Transform>();
+	m_world.AddSystem(new core::MovementSystem);
+	auto e = m_world.CreateEntity("derp0");
+	auto pos = e->AddComponent<core::Position>();
+	auto dir = e->AddComponent<core::Direction>();
 
-	m_world.AddSystem(rs);
-	auto e = m_world.CreateEntity("derp");
-	e->AddComponent<core::Transform>();
+	pos->x = 10;
+	dir->x = 1.3f;
+	dir->y = 0.4f;
 
 	bool initialized = false;
 	if (m_gameConfig.Init())

@@ -33,13 +33,13 @@ namespace core
 			bool RemoveEntity(Entity* entity);
 
 		public:
-			template<typename C = Component>
+			template<typename C>
 			void AddRequirement()
 			{
 				m_requirements.push_back(C::Type);
 			}
 
-			bool Requires(std::vector<Component*> requirements) const;
+			bool Requires(const std::vector<Component*>& requirements) const;
 
 		protected:
 			std::vector<Entity*> m_entities;

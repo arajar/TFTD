@@ -7,16 +7,10 @@ namespace core
 	class Transform : public ecs::Component
 	{
 	public:
-		static std::string Type;
-
-	public:
 		Transform();
 		Transform(const glm::vec3& pos);
 		Transform(const glm::vec3& pos, const glm::vec3& scale);
 		Transform(const glm::vec3& pos, const glm::vec3& scale, const glm::quat& rotation);
-
-	public:
-		virtual void Update(Uint32 deltaTime) override {};
 
 	public:
 		const glm::vec3& GetPosition();
@@ -26,6 +20,9 @@ namespace core
 		void SetPosition(const glm::vec3& pos);
 		void SetScale(const glm::vec3& scale);
 		void SetRotation(const glm::quat& rotation);
+
+	public:
+		static std::string Type;
 
 	private:
 		const glm::mat4 GetTransform();

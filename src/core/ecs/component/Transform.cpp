@@ -3,8 +3,6 @@
 
 namespace core
 {
-	std::string Transform::Type = COMPONENT_NAME(Transform);
-
 	Transform::Transform()
 		: m_position(0.0f)
 		, m_scale(1.0f)

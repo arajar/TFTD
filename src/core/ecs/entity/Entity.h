@@ -18,15 +18,21 @@ namespace core
 
 		public:
 			template <typename C = Component>
-			bool AddComponent()
+			C* AddComponent()
 			{
-				if (m_components.size() < s_maxComponents)
+				if (HasComponent<C>())
 				{
-					m_components.push_back(new C);
-					return true;
+					return GetComponent<C>();
 				}
 
-				return false;
+				if (m_components.size() < s_maxComponents)
+				{
+					auto comp = new C;
+					m_components.push_back(comp);
+					return comp;
+				}
+
+				return nullptr;
 			}
 
 			template <typename C = Component>

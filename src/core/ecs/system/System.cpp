@@ -51,11 +51,11 @@ namespace core
 			return false;
 		}
 
-		bool System::Requires(std::vector<Component*> requirements) const
+		bool System::Requires(const std::vector<Component*>& components) const
 		{
-			for (auto& req : requirements)
+			for (const auto& comp : components)
 			{
-				auto found = std::find(m_requirements.begin(), m_requirements.end(), Component::Type);
+				auto found = std::find(m_requirements.begin(), m_requirements.end(), comp->GetType());
 				if (found != m_requirements.end())
 				{
 					return true;

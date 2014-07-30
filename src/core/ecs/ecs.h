@@ -6,5 +6,9 @@
 
 #include "World.h"
 
-#include "component/Transform.h"
+#include "Transform.h"
+#include "Position.h"
+#include "Direction.h"
+
 #include "RenderSystem.h"
+#include "MovementSystem.h"
