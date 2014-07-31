@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "MovementSystem.h"
+#include "Entity.h"
 
 namespace core
 {
 	MovementSystem::MovementSystem()
 	{
 		m_type = ecs::SystemType::Logic;
-		AddRequirement<Position>();
-		AddRequirement<Direction>();
 	}
 
 	void MovementSystem::Process(Uint32 deltaTime)
@@ -21,4 +20,10 @@ namespace core
 			p->y += d->y * deltaTime;
 		}
 	}
+
+	bool MovementSystem::ValidateEntity(const ecs::Entity* entity) const
+	{
+		return entity->HasComponent<Position>() && entity->HasComponent<Direction>();
+	}
+
 }

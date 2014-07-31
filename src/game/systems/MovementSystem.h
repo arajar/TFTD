@@ -4,6 +4,7 @@
 
 namespace core
 {
+	class Entity;
 	class MovementSystem : public ecs::System
 	{
 	public:
@@ -11,6 +12,7 @@ namespace core
 
 	public:
 		virtual void Process(Uint32 deltaTime) override;
+		virtual bool ValidateEntity(const ecs::Entity* entity) const override;
 	};
 
 }

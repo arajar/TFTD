@@ -77,7 +77,7 @@ namespace core
 				{
 					for (auto system : m_logicSystems)
 					{
-						if (system->Requires(entity->GetComponents()))
+						if (system->ValidateEntity(entity))
 						{
 							system->AddEntity(entity);
 							m_entities.push_back(entity);
@@ -86,7 +86,7 @@ namespace core
 
 					for (auto system : m_renderSystems)
 					{
-						if (system->Requires(entity->GetComponents()))
+						if (system->ValidateEntity(entity))
 						{
 							system->AddEntity(entity);
 							m_entities.push_back(entity);

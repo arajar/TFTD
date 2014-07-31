@@ -20,11 +20,6 @@ namespace core
 			template <typename C = Component>
 			C* AddComponent()
 			{
-				if (HasComponent<C>())
-				{
-					return GetComponent<C>();
-				}
-
 				if (m_components.size() < s_maxComponents)
 				{
 					auto comp = new C;

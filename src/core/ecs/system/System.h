@@ -30,16 +30,8 @@ namespace core
 
 		public:
 			bool AddEntity(Entity* entity);
+			virtual bool ValidateEntity(const Entity* entity) const = 0;
 			bool RemoveEntity(Entity* entity);
-
-		public:
-			template<typename C>
-			void AddRequirement()
-			{
-				m_requirements.push_back(C::Type);
-			}
-
-			bool Requires(const std::vector<Component*>& requirements) const;
 
 		protected:
 			std::vector<Entity*> m_entities;
