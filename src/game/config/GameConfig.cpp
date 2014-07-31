@@ -25,7 +25,7 @@ std::vector<std::string> split(const std::string &s, char delim)
 
 //////////////////////////////////////////////////////////////////////////
 
-GameConfig::GameConfig(std::string configFile)
+GameConfig::GameConfig(const std::string& configFile)
 	: std::map<std::string, ConfigData>()
 	, m_configFile(configFile)
 {
@@ -135,9 +135,16 @@ bool GameConfig::Deserialize()
 		}
 
 		file.close();
+		return true;
+	}
+	else
+	{
+		// Creates a default empty file
+		(*this)["data.folder"] = "Data";
+		return Serialize();
 	}
 
-	return true;
+	return false;
 }
 
 //////////////////////////////////////////////////////////////////////////

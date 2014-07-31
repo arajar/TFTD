@@ -77,7 +77,7 @@ struct ConfigData
 class GameConfig : public std::map < std::string, ConfigData >
 {
 public:
-	GameConfig(std::string configFile);
+	GameConfig(const std::string& configFile);
 	virtual ~GameConfig();
 
 public:

@@ -172,3 +172,9 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+prj/vs2012/x86/TFTD.sln
+prj/vs2012/x86/TFTD.vcxproj
+prj/vs2012/x86/TFTD.vcxproj.filters
+prj/vs2013/x86/TFTD.sln
+prj/vs2013/x86/TFTD.vcxproj
+prj/vs2013/x86/TFTD.vcxproj.filters

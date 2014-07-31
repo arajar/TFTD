@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "config\GameConfig.h"
+#include "filesystem.h"
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -31,6 +32,9 @@ bool Game::Init()
 	pos->x = 10;
 	dir->x = 1.3f;
 	dir->y = 0.4f;
+
+	core::fs::FileSystem fs("./Data");
+	fs.Init();
 
 	bool initialized = false;
 	if (m_gameConfig.Init())
