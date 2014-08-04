@@ -2,24 +2,24 @@
 
 namespace core
 {
-	namespace fs
+	class FileSystem : public std::map < std::string, std::string >
 	{
-		class FileSystem : std::map<std::string, std::string>
-		{
-		public:
-			FileSystem(const std::string& dataFolder);
-			~FileSystem();
+	public:
+		FileSystem(const std::string& folder);
+		virtual ~FileSystem() {};
 
-			FileSystem(const FileSystem& fs) = delete;
+		FileSystem(const FileSystem& fs) = delete;
 
-		public:
-			bool Init();
+	public:
+		bool Init();
+		void Refresh();
+		bool AddFolder(const std::string& folder);
+		bool RemoveFolder(const std::string& folder);
 
-		private:
-			bool ReadDir(const std::string& dir);
+	private:
+		void ReadFolder(const std::string& dir);
 
-		private:
-			const std::string m_dataFolder;
-		};
-	}
+	private:
+		std::vector<std::string> m_folders;
+	};
 }

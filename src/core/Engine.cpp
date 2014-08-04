@@ -10,6 +10,7 @@ namespace core
 	Engine::Engine()
 		: m_window(nullptr)
 		, m_renderer(nullptr)
+		, m_fs("./Data")
 	{
 	}
 
@@ -62,6 +63,7 @@ namespace core
 		// Singleton creation
 		new ContentManager(m_renderer, "");
 
+		m_fs.Init();
 		m_fpsTimer.Start();
 
 		return true;
@@ -92,11 +94,6 @@ namespace core
 			m_fpsTimer.Start();
 			while (SDL_PollEvent(&event))
 			{
-				if (event.type == SDL_QUIT)
-				{
-					m_running = false;
-				}
-
 				HandleEvents(event);
 			}
 

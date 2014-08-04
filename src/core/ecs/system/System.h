@@ -12,6 +12,7 @@ namespace core
 		{
 			Logic,
 			Render,
+			EventHandler,
 			None,
 		};
 
@@ -26,7 +27,9 @@ namespace core
 			virtual const int GetPriority() const;
 
 		public:
-			virtual void Process(Uint32 deltaTime) = 0;
+			virtual void Process() {};
+			virtual void Process(Uint32 deltaTime) {};
+			virtual void Process(const SDL_Event& event) {};
 
 		public:
 			bool AddEntity(Entity* entity);

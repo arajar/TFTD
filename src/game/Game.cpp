@@ -24,18 +24,6 @@ bool Game::Init()
 {
 	Engine::Init();
 
-	m_world.AddSystem(new core::MovementSystem);
-	auto e = m_world.CreateEntity("derp0");
-	auto pos = e->AddComponent<core::Position>();
-	auto dir = e->AddComponent<core::Direction>();
-
-	pos->x = 10;
-	dir->x = 1.3f;
-	dir->y = 0.4f;
-
-	core::fs::FileSystem fs("./Data");
-	fs.Init();
-
 	bool initialized = false;
 	if (m_gameConfig.Init())
 	{
@@ -50,6 +38,13 @@ bool Game::Init()
 
 void Game::HandleEvents(const SDL_Event& event)
 {
+	if (event.type == SDL_QUIT)
+	{
+		m_running = false;
+		return;
+	}
+
+	m_world.HandleEvents(event);
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -57,7 +52,6 @@ void Game::HandleEvents(const SDL_Event& event)
 void Game::Update(Uint32 deltaTime)
 {
 	Engine::Update(deltaTime);
-
 	m_world.Update(deltaTime);
 }
 

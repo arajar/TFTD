@@ -16,7 +16,6 @@ namespace core
 		{
 			m_newEntities.clear();
 			m_entities.clear();
-
 		}
 
 		void World::Update(Uint32 deltaTime)
@@ -33,7 +32,15 @@ namespace core
 		{
 			for (auto& renderSystem : m_renderSystems)
 			{
-				renderSystem->Process(0);
+				renderSystem->Process();
+			}
+		}
+
+		void World::HandleEvents(const SDL_Event& event)
+		{
+			for (auto& eventSystem : m_eventSystems)
+			{
+				eventSystem->Process(event);
 			}
 		}
 
@@ -63,6 +70,9 @@ namespace core
 			case SystemType::Render:
 				m_renderSystems.push_back(system);
 				break;
+			case SystemType::EventHandler:
+				m_eventSystems.push_back(system);
+				break;
 			default:
 				throw new GameException("Unknown type for system");
 				break;
@@ -85,6 +95,15 @@ namespace core
 					}
 
 					for (auto system : m_renderSystems)
+					{
+						if (system->ValidateEntity(entity))
+						{
+							system->AddEntity(entity);
+							m_entities.push_back(entity);
+						}
+					}
+
+					for (auto system : m_eventSystems)
 					{
 						if (system->ValidateEntity(entity))
 						{

@@ -10,7 +10,7 @@ namespace core
 		RenderSystem();
 
 	public:
-		virtual void Process(Uint32 deltaTime) override;
+		virtual void Process() override;
 	};
 
 }

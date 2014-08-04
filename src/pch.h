@@ -31,6 +31,7 @@
 #include "core/Singleton.h"
 #include "core/GameException.h"
 #include "core/ContentManager.h"
+#include "core/filesystem/FileSystem.h"
 #include "core/resources/IResource.h"
 #include "core/util/Timer.h"
 #include "core/util/Tweener.h"

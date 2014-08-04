@@ -3,6 +3,7 @@
 
 namespace core
 {
+	class FileSystem;
 	class Engine
 	{
 	public:
@@ -41,6 +42,6 @@ namespace core
 
 	private:
 		util::Timer m_fpsTimer;
-
+		FileSystem m_fs;
 	};
 }

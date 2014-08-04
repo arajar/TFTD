@@ -20,6 +20,7 @@ namespace core
 		public:
 			void Update(Uint32 deltaTime);
 			void Render();
+			void HandleEvents(const SDL_Event& event);
 
 		public:
 			Entity* CreateEntity(const std::string& name);
@@ -36,6 +37,7 @@ namespace core
 			std::vector<Entity*> m_entities;
 			std::vector<System*> m_logicSystems;
 			std::vector<System*> m_renderSystems;
+			std::vector<System*> m_eventSystems;
 
 		};
 	}
