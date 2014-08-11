@@ -19,6 +19,8 @@
 #include <iostream>
 #include <algorithm>
 
+#include "GL/glew.h"
+
 #include "sdl.h"
 #include "sdl_image.h"
 #include "sdl_ttf.h"
