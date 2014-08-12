@@ -122,6 +122,7 @@ namespace core
 
 	void Engine::BeginFrame()
 	{
+		SDL_SetRenderDrawColor(m_renderer, 50, 50, 50, 255);
 		SDL_RenderClear(m_renderer);
 	}
 

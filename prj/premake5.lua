@@ -14,9 +14,8 @@ solution "TFTD"
 
 -------------------------------------------------------------------------------
 
-project "TFTD"
-
 	local LIBS    = "../libs/"
+	local BUILD   = "../build/"
 
 	local SDL_LIB = LIBS.."SDL2-2.0.3"
 	local SDL_MIX = LIBS.."SDL2_mixer-2.0.0"
@@ -25,6 +24,33 @@ project "TFTD"
 	local GLM	  = LIBS.."glm"
 	local IMGUI   = LIBS.."imgui"
 	local GLEW    = LIBS.."glew-1.10.0"
+
+-------------------------------------------------------------------------------
+
+project "IMGUI"
+	targetdir("../build/".._OPTIONS["arch"].."/")
+	kind "StaticLib"
+
+	files
+	{
+		IMGUI .. "/**",
+	}
+
+	includedirs
+	{
+		IMGUI,
+	}
+
+	targetname( "imgui" )
+
+	configuration "Debug"
+		buildoptions { "/MDd" }
+
+	configuration "Release"
+		buildoptions { "/MD" }
+
+
+project "TFTD"
 
 	targetdir("../release/" )
 	kind "ConsoleApp"
@@ -35,7 +61,6 @@ project "TFTD"
 	files 
 	{
 		"../src/**",
-		IMGUI,
 	}
 
 	includedirs 
@@ -58,6 +83,7 @@ project "TFTD"
 		SDL_TTF.."/lib/" .. _OPTIONS["arch"],
 		SDL_IMG.."/lib/" .. _OPTIONS["arch"],
 		GLEW.."/lib/" .. _OPTIONS["arch"],
+		BUILD .. _OPTIONS["arch"],
 	}
 
 	-- Copy the needed dlls to the output dir
@@ -83,6 +109,7 @@ project "TFTD"
 		"SDL2_mixer.lib",
 		"SDL2_ttf.lib",
 		"Opengl32.lib",
+		"imgui.lib"
 	}
 
 	configuration "Debug"

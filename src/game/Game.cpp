@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Game.h"
-#include "config\GameConfig.h"
+#include "Config.h"
 #include "filesystem.h"
 
 
