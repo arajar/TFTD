@@ -1,6 +1,6 @@
 #pragma once
 
-#include "System.h"
+#include "ecs/system/System.h"
 
 namespace core
 {

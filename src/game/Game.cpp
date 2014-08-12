@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Game.h"
-#include "Config.h"
-#include "filesystem.h"
+#include "config/Config.h"
+#include "filesystem/filesystem.h"
 
 
 //////////////////////////////////////////////////////////////////////////

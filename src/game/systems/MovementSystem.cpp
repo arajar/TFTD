@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "MovementSystem.h"
-#include "Entity.h"
+#include "ecs/entity/Entity.h"
 
 namespace core
 {

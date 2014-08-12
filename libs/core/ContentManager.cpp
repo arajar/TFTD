@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "core.h"
 #include "ContentManager.h"
 
 #include "resources\Image.h"
