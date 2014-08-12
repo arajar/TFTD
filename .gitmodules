@@ -1,6 +1,3 @@
 [submodule "libs/glm"]
 	path = libs/glm
 	url = https://github.com/g-truc/glm
-[submodule "libs/imgui"]
-	path = libs/imgui
-	url = https://github.com/arajar/imgui
