@@ -111,7 +111,7 @@ function addCommonConfig()
 	
 	configurations { "Debug", "Release" }
 
-	flags {"FatalWarnings", "NoMinimalRebuild" } 
+	--flags {"FatalWarnings", "NoMinimalRebuild" } 
 		
 	flags { "MultiProcessorCompile" }
 	defines { "_WIN32_WINNT=0x0501"} -- needed for boost 

@@ -97,6 +97,14 @@ project "imgui"
 		IMGUI,
 	}
 
+	excludes 
+	{
+		IMGUI.."/examples",
+		IMGUI.."/examples/**",
+		IMGUI.."/web",
+		IMGUI.."/web/**",
+	}
+
 	configuration "Debug"
 		buildoptions { "/MDd" }
 

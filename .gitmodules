@@ -3,4 +3,4 @@
 	url = https://github.com/g-truc/glm
 [submodule "libs/imgui"]
 	path = libs/imgui
-	url = https://github.com/arajar/imgui
+	url = https://github.com/ocornut/imgui
