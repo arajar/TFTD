@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Component.h"
+#include "ecs/Component.h"
 
-namespace core
+namespace ecs
 {
-	class Transform : public ecs::Component
+	class Transform : public core::ecs::Component
 	{
 	public:
 		Transform();

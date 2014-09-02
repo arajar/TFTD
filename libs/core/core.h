@@ -5,6 +5,8 @@
 #define STRING(x) STRING2(x)
 #define TODO(msg) __pragma( message (__FILE__ "[" STRING(__LINE__) "] --- TODO: " msg ))
 
+///////////////////////////////////////////////////////////////////////////////
+
 #include <typeinfo>
 #include <string>
 #include <memory>
@@ -30,6 +32,7 @@
 #include "gtc/quaternion.hpp"
 #include "gtx/quaternion.hpp"
 
+#include "Identifier.h"
 #include "Singleton.h"
 #include "GameException.h"
 #include "ContentManager.h"
@@ -39,3 +42,7 @@
 #include "util/Tweener.h"
 
 #include "ecs/ecs.h"
+
+#include "imgui.h"
+
+#include "resources/Image.h"

@@ -1,13 +1,13 @@
 #pragma once
 
-#include "ecs/system/System.h"
+#include "ecs/System.h"
 
-namespace core
+namespace ecs
 {
-	class RenderSystem : public ecs::System
+	class RenderSystem : public core::ecs::System
 	{
 	public:
-		RenderSystem();
+		RenderSystem(core::ecs::World& world);
 
 	public:
 		virtual void Process() override;

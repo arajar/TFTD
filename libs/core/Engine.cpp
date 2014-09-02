@@ -4,7 +4,7 @@
 
 namespace core
 {
-	const int Engine::FPS = 60;
+	const int Engine::FPS = 30;
 	const int Engine::SKIP_TICKS = 1000 / Engine::FPS;
 
 	Engine::Engine()
@@ -60,11 +60,11 @@ namespace core
 			throw GameException(SDL_GetError());
 		}
 
-		// Singleton creation
-		new ContentManager(m_renderer, "");
-
 		m_fs.Init();
 		m_fpsTimer.Start();
+
+		// Singleton creation
+		new ContentManager(m_renderer, m_fs);
 
 		return true;
 	}
@@ -97,12 +97,12 @@ namespace core
 				HandleEvents(event);
 			}
 
-			Update(deltaTime);
+			Update(SKIP_TICKS);
 			Render();
 
-			if (m_fpsTimer.GetTicks() < Engine::SKIP_TICKS)
+			if (m_fpsTimer.GetTicks() < 1000 / Engine::FPS)
 			{
-				SDL_Delay(Engine::SKIP_TICKS - m_fpsTimer.GetTicks());
+				SDL_Delay((1000 / Engine::FPS) - m_fpsTimer.GetTicks());
 			}
 		}
 

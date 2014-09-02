@@ -1,12 +1,10 @@
 #pragma once
-#include "component/Component.h"
 
 namespace core
 {
 	namespace ecs
 	{
-		class Entity;
-		class Component;
+		class World;
 
 		enum class SystemType
 		{
@@ -18,8 +16,9 @@ namespace core
 
 		class System
 		{
+			ID(System);
 		public:
-			System();
+			System(World& world);
 			virtual ~System();
 
 		public:
@@ -31,14 +30,8 @@ namespace core
 			virtual void Process(Uint32 deltaTime) {};
 			virtual void Process(const SDL_Event& event) {};
 
-		public:
-			bool AddEntity(Entity* entity);
-			virtual bool ValidateEntity(const Entity* entity) const = 0;
-			bool RemoveEntity(Entity* entity);
-
 		protected:
-			std::vector<Entity*> m_entities;
-			std::vector<std::string> m_requirements;
+			World& m_world;
 
 			SystemType m_type;
 			int m_priority;

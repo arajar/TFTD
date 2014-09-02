@@ -93,11 +93,11 @@ configuration "Debug*"
 	defines { debugDefines, commonDefines }
 	flags { debugFlags }	
 
-configuration "Release"
-	flags { "NoRTTI", "NoExceptions"}
+--configuration "Release"
+--	flags { "NoRTTI", "NoExceptions"}
 	
-configuration "Debug"
-	flags { "NoRTTI", "NoExceptions"}
+--configuration "Debug"
+--	flags { "NoRTTI", "NoExceptions"}
 	
 -------------------------------------------------------------------------------
 --

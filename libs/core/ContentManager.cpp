@@ -7,9 +7,9 @@
 
 namespace core
 {
-	ContentManager::ContentManager(SDL_Renderer* renderer, const std::string& pathToContent)
+	ContentManager::ContentManager(SDL_Renderer* renderer, FileSystem& fs)
 		: m_renderer(renderer)
-		, m_pathToContent(pathToContent)
+		, m_fs(fs)
 	{
 	}
 

@@ -1,7 +1,7 @@
-#include "core.h"
+#include "pch.h"
 #include "Transform.h"
 
-namespace core
+namespace ecs
 {
 	Transform::Transform()
 		: m_position(0.0f)

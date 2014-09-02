@@ -107,10 +107,23 @@ project "imgui"
 
 	configuration "Debug"
 		buildoptions { "/MDd" }
+		defines
+		{
+			"_DEBUG",
+			"_SCL_SECURE_NO_WARNINGS",
+			"_CRT_SECURE_NO_WARNINGS",
+		}
 
 	configuration "Release"
 		buildoptions { "/MD" }
-
+		defines
+		{
+			"NDEBUG",
+			"_SECURE_SCL=0",
+			"_SECURE_SCL_THROWS=0",
+			"_SCL_SECURE_NO_WARNINGS",
+			"_CRT_SECURE_NO_WARNINGS",
+		}
 
 project "terror"
 

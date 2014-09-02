@@ -2,7 +2,11 @@
 #include "Game.h"
 #include "config/Config.h"
 #include "filesystem/filesystem.h"
-
+#include "MovementSystem.h"
+#include "RenderSystem.h"
+#include "Sprite.h"
+#include "Position.h"
+#include "Direction.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -23,6 +27,20 @@ Game::~Game()
 bool Game::Init()
 {
 	Engine::Init();
+
+	auto entity = m_world.CreateEntity();
+	auto p = m_world.AddComponent<ecs::Position>(entity);
+	auto s = m_world.AddComponent<ecs::Sprite>(entity);
+	auto img = core::ContentManager::GetInstance()->Get<core::Image>("Goblin.png");
+	s->SetImage(img);
+
+	bool aaa = m_world.HasComponent<ecs::Direction>(entity);
+
+	p->x = 10;
+	p->y = 10;
+
+	m_world.AddSystem<ecs::MovementSystem>();
+	m_world.AddSystem<ecs::RenderSystem>();
 
 	bool initialized = false;
 	if (m_gameConfig.Init())
@@ -60,6 +78,13 @@ void Game::Update(Uint32 deltaTime)
 void Game::RenderFrame()
 {
 	m_world.Render();
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+bool Game::InitGUI()
+{
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////////

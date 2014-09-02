@@ -1,21 +1,24 @@
 #pragma once
 
 #include "resources\IResource.h"
-
-class Image;
-class Font;
+#include "filesystem\FileSystem.h"
 
 namespace core
 {
+	class Image;
+
 	class ContentManager : public Singleton<ContentManager>
 	{
 	public:
-		ContentManager(SDL_Renderer* renderer, const std::string& pathToContent);
+		ContentManager(SDL_Renderer* renderer, FileSystem& fs);
 		virtual ~ContentManager();
 
 	public:
 		template<class Resource>
 		Resource* Get(const std::string& name);
+		
+		template<>
+		Image* Get(const std::string& name);
 
 		void Unload();
 
@@ -24,9 +27,11 @@ namespace core
 
 	private:
 		SDL_Renderer* m_renderer;
-		const std::string m_pathToContent;
 
 		std::map<std::string, IResource*> m_resources;
+
+	private:
+		FileSystem& m_fs;
 	};
 }
 

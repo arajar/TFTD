@@ -1,7 +1,6 @@
 #include "core.h"
 #include "World.h"
 
-#include "Entity.h"
 #include "System.h"
 
 namespace core
@@ -14,106 +13,63 @@ namespace core
 
 		World::~World()
 		{
-			m_newEntities.clear();
 			m_entities.clear();
 		}
 
 		void World::Update(Uint32 deltaTime)
 		{
-			for (auto& logicSystem : m_logicSystems)
+			for (auto& system : m_systems)
 			{
-				logicSystem->Process(deltaTime);
+				if (system->GetType() == SystemType::Logic)
+				{
+					system->Process(deltaTime);
+				}
 			}
-
-			UpdateSystems();
 		}
 
 		void World::Render()
 		{
-			for (auto& renderSystem : m_renderSystems)
+			for (auto& system : m_systems)
 			{
-				renderSystem->Process();
+				if (system->GetType() == SystemType::Render)
+				{
+					system->Process();
+				}
 			}
 		}
 
 		void World::HandleEvents(const SDL_Event& event)
 		{
-			for (auto& eventSystem : m_eventSystems)
+			for (auto& system : m_systems)
 			{
-				eventSystem->Process(event);
-			}
-		}
-
-		Entity* World::CreateEntity(const std::string& name)
-		{
-			auto entity = new Entity(name);
-			m_newEntities.push_back(entity);
-			return entity;
-		}
-
-		void World::DeleteEntity(Entity* entity)
-		{
-			auto it = std::find(m_entities.begin(), m_entities.end(), entity);
-			if (it != m_entities.end())
-			{
-				m_entities.erase(it);
-			}
-		}
-
-		void World::AddSystem(System* system)
-		{
-			switch (system->GetType())
-			{
-			case SystemType::Logic:
-				m_logicSystems.push_back(system);
-				break;
-			case SystemType::Render:
-				m_renderSystems.push_back(system);
-				break;
-			case SystemType::EventHandler:
-				m_eventSystems.push_back(system);
-				break;
-			default:
-				throw new GameException("Unknown type for system");
-				break;
-			}
-		}
-
-		void World::UpdateSystems()
-		{
-			if (!m_newEntities.empty())
-			{
-				for (auto entity : m_newEntities)
+				if (system->GetType() == SystemType::EventHandler)
 				{
-					for (auto system : m_logicSystems)
-					{
-						if (system->ValidateEntity(entity))
-						{
-							system->AddEntity(entity);
-							m_entities.push_back(entity);
-						}
-					}
+					system->Process(event);
+				}
+			}
+		}
 
-					for (auto system : m_renderSystems)
-					{
-						if (system->ValidateEntity(entity))
-						{
-							system->AddEntity(entity);
-							m_entities.push_back(entity);
-						}
-					}
+		const Entity::Id World::CreateEntity()
+		{
+			auto newEntity = Entity::Id(++m_entityId);
+			m_entities[newEntity].reserve(0);
+			return newEntity;
+		}
 
-					for (auto system : m_eventSystems)
-					{
-						if (system->ValidateEntity(entity))
-						{
-							system->AddEntity(entity);
-							m_entities.push_back(entity);
-						}
-					}
+		void World::DeleteEntity(const Entity::Id& entity)
+		{
+			auto found = m_entities.find(entity);
+			if (found != m_entities.end())
+			{
+				auto comp = m_entities[entity];
+				for (auto c : comp)
+				{
+					c->OnRemove();
+					delete c;
 				}
 
-				m_newEntities.clear();
+				comp.clear();
+				m_entities.erase(found);
 			}
 		}
 	}

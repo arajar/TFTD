@@ -1,17 +1,17 @@
 #include "pch.h"
-#include "MovementSystem.h"
+#include "InputSystem.h"
 #include "Position.h"
 #include "Direction.h"
 
 namespace ecs
 {
-	MovementSystem::MovementSystem(core::ecs::World& world)
+	InputSystem::InputSystem(core::ecs::World& world)
 		: System(world)
 	{
 		m_type = core::ecs::SystemType::Logic;
 	}
 
-	void MovementSystem::Process(Uint32 deltaTime)
+	void InputSystem::Process(Uint32 deltaTime)
 	{
 		for (auto e : m_world.GetEntitiesWith<ecs::Position, ecs::Direction>())
 		{

@@ -1,4 +1,5 @@
 #include "ContentManager.h"
+#include "resources\Image.h"
 
 namespace core
 {
@@ -10,9 +11,7 @@ namespace core
 			return static_cast<Resource*>(m_resources[name]);
 		}
 
-		std::string path = m_pathToContent;
-		path += "gfx/";
-		path += name;
+		std::string path = m_fs[name];
 
 		Resource* res = new Resource(path);
 		try
@@ -31,4 +30,29 @@ namespace core
 
 		return res;
 	}
+
+	template<>
+	core::Image* ContentManager::Get(const std::string& name)
+	{
+		if (m_resources[name] != nullptr)
+		{
+			return static_cast<core::Image*>(m_resources[name]);
+		}
+
+		std::string path = m_fs[name];
+
+		core::Image* img = new core::Image(path, m_renderer);
+		try
+		{
+			img->Load();
+		}
+		catch (const core::GameException& ex)
+		{
+			std::cout << ex.what() << std::endl;
+		}
+
+		m_resources[name] = img;
+		return img;
+	}
+
 }

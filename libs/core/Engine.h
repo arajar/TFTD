@@ -39,9 +39,9 @@ namespace core
 	protected:
 		SDL_Window* m_window;
 		SDL_Renderer* m_renderer;
+		FileSystem m_fs;
 
 	private:
 		util::Timer m_fpsTimer;
-		FileSystem m_fs;
 	};
 }
