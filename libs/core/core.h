@@ -34,6 +34,7 @@
 
 #include "Identifier.h"
 #include "Singleton.h"
+#include "Delegate.h"
 #include "GameException.h"
 #include "ContentManager.h"
 #include "filesystem/FileSystem.h"

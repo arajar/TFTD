@@ -10,4 +10,11 @@ namespace ecs
 		float x = 0.f;
 		float y = 0.f;
 	};
+
+	class Direction : public core::ecs::Component
+	{
+	public:
+		float x = 0.f;
+		float y = 0.f;
+	};
 }

@@ -108,11 +108,25 @@ namespace core
 			for (itBegin; itBegin != itEnd; itBegin++)
 			{
 				auto comp = (*itBegin).second;
+				Component* a = nullptr;
+				Component* b = nullptr;
+
 				for (int i = 0; i < comp.size(); i++)
 				{
-					if (dynamic_cast<A*>(comp[i]) || dynamic_cast<B*>(comp[i]))
+					if (!a)
+					{
+						a = dynamic_cast<A*>(comp[i]);
+					}
+
+					if (!b)
+					{
+						b = dynamic_cast<B*>(comp[i]);
+					}
+
+					if (a && b)
 					{
 						entities.push_back((*itBegin).first);
+						break;
 					}
 				}
 			}

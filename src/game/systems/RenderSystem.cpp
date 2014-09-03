@@ -2,7 +2,7 @@
 #include "RenderSystem.h"
 #include "Sprite.h"
 #include "Position.h"
-#include "Direction.h"
+//#include "Direction.h"
 
 namespace ecs
 {

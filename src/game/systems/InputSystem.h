@@ -10,6 +10,6 @@ namespace ecs
 		InputSystem(core::ecs::World& world);
 
 	public:
-		virtual void Process(Uint32 deltaTime) override;
+		virtual void Process(const SDL_Event& event) override;
 	};
 }

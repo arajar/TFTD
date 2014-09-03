@@ -52,6 +52,7 @@ namespace core
 		}
 
 		m_resources[name] = img;
+
 		return img;
 	}
 

@@ -1,25 +1,55 @@
 #include "pch.h"
 #include "InputSystem.h"
 #include "Position.h"
-#include "Direction.h"
+#include "InputController.h"
 
 namespace ecs
 {
 	InputSystem::InputSystem(core::ecs::World& world)
 		: System(world)
 	{
-		m_type = core::ecs::SystemType::Logic;
+		m_type = core::ecs::SystemType::EventHandler;
 	}
 
-	void InputSystem::Process(Uint32 deltaTime)
+	void InputSystem::Process(const SDL_Event& event)
 	{
-		for (auto e : m_world.GetEntitiesWith<ecs::Position, ecs::Direction>())
+		for (auto e : m_world.GetEntitiesWith<ecs::InputController, ecs::Direction>())
 		{
-			auto &p = *m_world.GetComponent<ecs::Position>(e);
-			auto &d = *m_world.GetComponent<ecs::Direction>(e);
+			auto &dir = *m_world.GetComponent<ecs::Direction>(e);
 
-			p.x += d.x * deltaTime;
-			p.y += d.y * deltaTime;
+			switch (event.type)
+			{
+			case SDL_KEYDOWN:
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_LEFT:
+					dir.x = -1;
+					break;
+				case SDLK_RIGHT:
+					dir.x = 1;
+					break;
+				case SDLK_UP:
+					dir.y = -1;
+					break;
+				case SDLK_DOWN:
+					dir.y = 1;
+					break;
+				}
+				break;
+			case SDL_KEYUP:
+				switch (event.key.keysym.sym)
+				{
+				case SDLK_LEFT:
+				case SDLK_RIGHT:
+					dir.x = 0.f;
+					break;
+				case SDLK_UP:
+				case SDLK_DOWN:
+					dir.y = 0.f;
+					break;
+				}
+				break;
+			}
 		}
 	}
 }
