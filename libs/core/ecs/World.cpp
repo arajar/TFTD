@@ -16,7 +16,7 @@ namespace core
 			m_entities.clear();
 		}
 
-		void World::Update(Uint32 deltaTime)
+		void World::Update(sf::Time deltaTime)
 		{
 			for (auto& system : m_systems)
 			{
@@ -38,13 +38,13 @@ namespace core
 			}
 		}
 
-		void World::HandleEvents(const SDL_Event& event)
+		void World::HandleEvents(sf::Keyboard::Key key, bool isPressed)
 		{
 			for (auto& system : m_systems)
 			{
 				if (system->GetType() == SystemType::EventHandler)
 				{
-					system->Process(event);
+					system->Process(key, isPressed);
 				}
 			}
 		}

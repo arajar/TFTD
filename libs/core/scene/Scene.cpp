@@ -18,11 +18,11 @@ namespace core
 	{
 		for (auto renderable : m_renderables)
 		{
-			renderable->Render();
+			//renderable->Render();
 		}
 	}
 
-	void Scene::Update(Uint32 deltaTime)
+	void Scene::Update(sf::Time deltaTime)
 	{
 		if (m_isDirty)
 		{

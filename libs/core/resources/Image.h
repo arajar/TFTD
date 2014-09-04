@@ -5,7 +5,7 @@ namespace core
 	class Image : public IResource, public IRenderable
 	{
 	public:
-		Image(const std::string& name, SDL_Renderer* renderer);
+		Image(const std::string& name);
 		virtual ~Image();
 
 	public: // IResource interface

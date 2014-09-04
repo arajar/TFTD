@@ -23,9 +23,10 @@
 
 #include "GL/glew.h"
 
-#include "sdl.h"
-#include "sdl_image.h"
-#include "sdl_ttf.h"
+#include "sfml/graphics.hpp"
+#include "sfml/OpenGL.hpp"
+#include "sfml/System.hpp"
+#include "sfml/Window.hpp"
 
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
@@ -39,7 +40,6 @@
 #include "ContentManager.h"
 #include "filesystem/FileSystem.h"
 #include "resources/IResource.h"
-#include "util/Timer.h"
 #include "util/Tweener.h"
 
 #include "ecs/ecs.h"

@@ -21,7 +21,7 @@ namespace core
 			{
 			}
 
-			Tweener(InterpolationFunction interpFunction, InterpType initialValue, InterpType targetValue, Uint32 delay)
+			Tweener(InterpolationFunction interpFunction, InterpType initialValue, InterpType targetValue, uint32_t delay)
 				: m_interpFunction(interpFunction)
 				, m_initialValue(initialValue)
 				, m_currentValue(initialValue)
@@ -35,7 +35,7 @@ namespace core
 			virtual ~Tweener() {}
 
 		public:
-			bool Update(Uint32 deltaTime)
+			bool Update(sf::Time deltaTime)
 			{
 				if (m_interpFunction)
 				{
@@ -68,7 +68,7 @@ namespace core
 				return m_currentValue;
 			}
 
-			Uint32 GetDelay() const
+			uint32_t GetDelay() const
 			{
 				return m_delayTime;
 			}
@@ -101,7 +101,7 @@ namespace core
 				m_targetValue = target;
 			}
 
-			void SetDelay(Uint32 delay)
+			void SetDelay(uint32_t delay)
 			{
 				m_delayTime = delay;
 				m_accumTime = 0;
@@ -121,8 +121,8 @@ namespace core
 			InterpType m_initialValue;
 			InterpType m_currentValue;
 			InterpType m_targetValue;
-			Uint32 m_delayTime;
-			Uint32 m_accumTime;
+			uint32_t m_delayTime;
+			uint32_t m_accumTime;
 			bool m_updating;
 		};
 	}

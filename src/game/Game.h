@@ -19,8 +19,8 @@ public:
 	bool Init();
 
 public:
-	virtual void HandleEvents(const SDL_Event& event) override;
-	virtual void Update(Uint32 deltaTime) override;
+	virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed) override;
+	virtual void Update(sf::Time deltaTime) override;
 
 protected:
 	virtual void RenderFrame() override;

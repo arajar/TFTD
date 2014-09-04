@@ -10,7 +10,7 @@ namespace core
 
 	public:
 		void Render();
-		void Update(Uint32 deltaTime);
+		void Update(sf::Time deltaTime);
 
 	public:
 		bool Add(IRenderable* renderable);

@@ -27,8 +27,8 @@ namespace core
 
 		public:
 			virtual void Process() {};
-			virtual void Process(Uint32 deltaTime) {};
-			virtual void Process(const SDL_Event& event) {};
+			virtual void Process(sf::Time deltaTime) {};
+			virtual void Process(sf::Keyboard::Key key, bool isPressed) {};
 
 		protected:
 			World& m_world;

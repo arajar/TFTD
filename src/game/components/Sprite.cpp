@@ -20,7 +20,7 @@ namespace ecs
 
 	void Sprite::Render()
 	{
-		m_image->Render();
+		//m_image->Render();
 	}
 
 	void Sprite::SetPosition(const glm::ivec2& pos)

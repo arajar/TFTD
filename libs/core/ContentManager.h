@@ -10,7 +10,7 @@ namespace core
 	class ContentManager : public Singleton<ContentManager>
 	{
 	public:
-		ContentManager(SDL_Renderer* renderer, FileSystem& fs);
+		ContentManager(FileSystem& fs);
 		virtual ~ContentManager();
 
 	public:
@@ -22,12 +22,7 @@ namespace core
 
 		void Unload();
 
-	public:
-		SDL_Renderer* GetRenderer() const;
-
-	private:
-		SDL_Renderer* m_renderer;
-
+	protected:
 		std::map<std::string, IResource*> m_resources;
 
 	private:

@@ -35,28 +35,11 @@ protected:
 class IRenderable : public ITransform
 {
 public:
-	IRenderable(SDL_Renderer* renderer) : m_renderer(renderer), m_texture(nullptr) {}
+	IRenderable() {}
 
 	virtual const glm::ivec2& GetSize() const
 	{
 		return m_size;
-	}
-
-	virtual SDL_Texture* GetTexture()
-	{
-		return m_texture;
-	}
-
-	virtual void Render()
-	{
-		const int x = m_position.x;
-		const int y = m_position.y;
-		const int w = m_size.x;
-		const int h = m_size.y;
-
-		SDL_Rect dst = { x, y, w, h };
-
-		SDL_RenderCopy(m_renderer, m_texture, NULL, &dst);
 	}
 
 	void SetLayer(int layer)
@@ -70,8 +53,6 @@ public:
 	}
 
 protected:
-	SDL_Renderer* m_renderer;
-	SDL_Texture* m_texture;
 	glm::ivec2 m_size;
 	int m_layer;
 };
@@ -79,6 +60,5 @@ protected:
 class IText
 {
 public:
-	virtual void Write(SDL_Renderer* renderer, const std::string& text, const glm::ivec2& pos, const SDL_Color& color) = 0;
-	virtual SDL_Rect GetRect() const = 0;
+	virtual void Write(const std::string& text, const glm::ivec2& pos) = 0;
 };

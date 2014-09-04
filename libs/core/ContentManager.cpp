@@ -2,14 +2,12 @@
 #include "ContentManager.h"
 
 #include "resources\Image.h"
-#include "resources\Font.h"
 #include "resources\Sound.h"
 
 namespace core
 {
-	ContentManager::ContentManager(SDL_Renderer* renderer, FileSystem& fs)
-		: m_renderer(renderer)
-		, m_fs(fs)
+	ContentManager::ContentManager(FileSystem& fs)
+		: m_fs(fs)
 	{
 	}
 
@@ -34,10 +32,5 @@ namespace core
 		}
 
 		m_resources.clear();
-	}
-
-	SDL_Renderer* ContentManager::GetRenderer() const
-	{
-		return m_renderer;
 	}
 }

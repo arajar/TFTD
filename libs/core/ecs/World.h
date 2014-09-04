@@ -18,9 +18,9 @@ namespace core
 			World(const World& copy) = delete;
 
 		public:
-			void Update(Uint32 deltaTime);
+			void Update(sf::Time deltaTime);
 			void Render();
-			void HandleEvents(const SDL_Event& event);
+			void HandleEvents(sf::Keyboard::Key key, bool isPressed);
 
 		public:
 			const Entity::Id CreateEntity();

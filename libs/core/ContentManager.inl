@@ -41,7 +41,7 @@ namespace core
 
 		std::string path = m_fs[name];
 
-		core::Image* img = new core::Image(path, m_renderer);
+		core::Image* img = new core::Image(path);
 		try
 		{
 			img->Load();

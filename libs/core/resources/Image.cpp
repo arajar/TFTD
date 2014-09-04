@@ -3,20 +3,18 @@
 
 namespace core
 {
-	Image::Image(const std::string& name, SDL_Renderer* renderer)
-		: IRenderable(renderer)
-		, m_name(name)
+	Image::Image(const std::string& name)
+		: m_name(name)
 	{
 	}
 
 	Image::~Image()
 	{
-		SDL_DestroyTexture(m_texture);
-		m_texture = nullptr;
 	}
 
 	bool Image::Load()
 	{
+		/*
 		SDL_Surface* surface = IMG_Load(m_name.c_str());
 
 		if (surface == nullptr)
@@ -36,6 +34,8 @@ namespace core
 		SDL_FreeSurface(surface);
 
 		return m_texture != nullptr;
+		*/
+		return true;
 	}
 
 	ResourceType Image::GetType()

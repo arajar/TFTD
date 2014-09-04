@@ -1,5 +1,4 @@
 #pragma once
-#include "util/Timer.h"
 
 namespace core
 {
@@ -8,7 +7,7 @@ namespace core
 	{
 	public:
 		static const int FPS;
-		static const int SKIP_TICKS;
+		static const sf::Time TIME_PER_FRAME;
 
 	public:
 		Engine();
@@ -22,8 +21,11 @@ namespace core
 		void Resize(int width, int height);
 
 	public:
-		virtual void HandleEvents(const SDL_Event& event) = 0;
-		virtual void Update(Uint32 deltaTime);
+		virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed) = 0;
+		virtual void Update(sf::Time elapsedTime);
+
+	protected:
+		virtual void ProcessEvents();
 
 	protected:
 		void BeginFrame();
@@ -33,15 +35,24 @@ namespace core
 	private:
 		void Render();
 
+	private:
+		void UpdateStatistics(sf::Time elapsedTime);
+
 	protected:
 		bool m_running;
 
 	protected:
-		SDL_Window* m_window;
-		SDL_Renderer* m_renderer;
-		FileSystem m_fs;
+		sf::RenderWindow*		m_window;
+		sf::Font				m_font;
+		sf::Text				m_statisticsText;
+		sf::Time				m_statisticsUpdateTime;
 
-	private:
-		util::Timer m_fpsTimer;
+		std::size_t				m_statisticsNumFrames;
+
+		sf::Clock				m_clock;
+		sf::Time				m_timeSinceLastUpdate;
+	
+	protected:
+		FileSystem m_fs;
 	};
 }

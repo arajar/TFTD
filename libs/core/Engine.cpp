@@ -4,12 +4,11 @@
 
 namespace core
 {
-	const int Engine::FPS = 30;
-	const int Engine::SKIP_TICKS = 1000 / Engine::FPS;
+	const int Engine::FPS = 60;
+	const sf::Time Engine::TIME_PER_FRAME = sf::seconds(1.f / Engine::FPS);
 
 	Engine::Engine()
 		: m_window(nullptr)
-		, m_renderer(nullptr)
 		, m_fs("./Data")
 	{
 	}
@@ -17,54 +16,28 @@ namespace core
 	Engine::~Engine()
 	{
 		ContentManager::Destroy();
-
-		TTF_Quit();
-		IMG_Quit();
-
-		SDL_DestroyRenderer(m_renderer);
-		SDL_DestroyWindow(m_window);
-
-		SDL_Quit();
 	}
 
 	bool Engine::Init()
 	{
-		if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		{
-			throw GameException(SDL_GetError());
-			return false;
-		}
-
-		int imgFlags = IMG_INIT_JPG | IMG_INIT_PNG;
-		if (!IMG_Init(IMG_INIT_PNG) & imgFlags)
-		{
-			throw GameException(IMG_GetError());
-			return false;
-		}
-
-		if (TTF_Init() != 0)
-		{
-			throw GameException(TTF_GetError());
-			return false;
-		}
-
-		m_window = SDL_CreateWindow("TFTD", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
+		m_window = new sf::RenderWindow(sf::VideoMode(640, 480), "tftd", sf::Style::Close | sf::Style::Resize);
 		if (m_window == nullptr)
 		{
-			throw GameException(SDL_GetError());
+			throw GameException("Could not create window.");
 		}
 
-		m_renderer = SDL_CreateRenderer(m_window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-		if (m_window == nullptr)
-		{
-			throw GameException(SDL_GetError());
-		}
+		m_window->setFramerateLimit(60);
+
 
 		m_fs.Init();
-		m_fpsTimer.Start();
 
+		m_font.loadFromFile(m_fs["sansation.ttf"]);
+		m_statisticsText.setFont(m_font);
+		m_statisticsText.setPosition(5.f, 5.f);
+		m_statisticsText.setCharacterSize(14);
+		
 		// Singleton creation
-		new ContentManager(m_renderer, m_fs);
+		new ContentManager(m_fs);
 
 		return true;
 	}
@@ -73,44 +46,55 @@ namespace core
 	{
 		if (width > 0 && height > 0)
 		{
-			SDL_SetWindowSize(m_window, width, height);
+			m_window->setSize(sf::Vector2u(width, height));
 		}
 	}
 
 	bool Engine::Run()
 	{
-		SDL_Event event;
-
-		m_fpsTimer.Start();
-		Uint32 elapsedTime = m_fpsTimer.GetTicks();
-		Uint32 prevFrametick = 0;
-		while (m_running)
+		while (m_window->isOpen())
 		{
-			prevFrametick = elapsedTime;
-			elapsedTime = m_fpsTimer.GetTicks();
-
-			Uint32 deltaTime = elapsedTime - prevFrametick;
-
-			m_fpsTimer.Start();
-			while (SDL_PollEvent(&event))
+			sf::Time elapsedTime = m_clock.restart();
+			m_timeSinceLastUpdate += elapsedTime;
+			while (m_timeSinceLastUpdate > TIME_PER_FRAME)
 			{
-				HandleEvents(event);
+				m_timeSinceLastUpdate -= TIME_PER_FRAME;
+
+				ProcessEvents();
+				Update(TIME_PER_FRAME);
 			}
 
-			Update(SKIP_TICKS);
+			UpdateStatistics(elapsedTime);
 			Render();
-
-			if (m_fpsTimer.GetTicks() < 1000 / Engine::FPS)
-			{
-				SDL_Delay((1000 / Engine::FPS) - m_fpsTimer.GetTicks());
-			}
 		}
 
 		return false;
 	}
 
-	void Engine::Update(Uint32 deltaTime)
+	void Engine::Update(sf::Time deltaTime)
 	{
+	}
+
+	void Engine::ProcessEvents()
+	{
+		sf::Event event;
+		while (m_window->pollEvent(event))
+		{
+			switch (event.type)
+			{
+			case sf::Event::KeyPressed:
+				HandleEvents(event.key.code, true);
+				break;
+
+			case sf::Event::KeyReleased:
+				HandleEvents(event.key.code, false);
+				break;
+
+			case sf::Event::Closed:
+				m_window->close();
+				break;
+			}
+		}
 	}
 
 	void Engine::Render()
@@ -122,12 +106,28 @@ namespace core
 
 	void Engine::BeginFrame()
 	{
-		SDL_SetRenderDrawColor(m_renderer, 50, 50, 50, 255);
-		SDL_RenderClear(m_renderer);
+		m_window->clear(sf::Color(50, 50, 50));
 	}
 
 	void Engine::EndFrame()
 	{
-		SDL_RenderPresent(m_renderer);
+		m_window->draw(m_statisticsText);
+		m_window->display();
+	}
+
+	void Engine::UpdateStatistics(sf::Time elapsedTime)
+	{
+		m_statisticsUpdateTime += elapsedTime;
+		m_statisticsNumFrames += 1;
+
+		if (m_statisticsUpdateTime >= sf::seconds(1.0f))
+		{
+			m_statisticsText.setString(
+				"Frames / Second = " + std::to_string(m_statisticsNumFrames) + "\n" +
+				"Time / Update = " + std::to_string(m_statisticsUpdateTime.asMicroseconds() / m_statisticsNumFrames) + "us");
+
+			m_statisticsUpdateTime -= sf::seconds(1.0f);
+			m_statisticsNumFrames = 0;
+		}
 	}
 }

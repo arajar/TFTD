@@ -34,7 +34,7 @@ bool Game::Init()
 	m_world.AddComponent<ecs::Direction>(entity);
 	m_world.AddComponent<ecs::InputController>(entity);
 	auto s = m_world.AddComponent<ecs::Sprite>(entity);
-	auto img = core::ContentManager::GetInstance()->Get<core::Image>("Goblin.png");
+	auto img = core::ContentManager::GetInstance()->Get<core::Image>("p1_stand.png");
 	s->SetImage(img);
 
 	p->x = 10;
@@ -56,20 +56,14 @@ bool Game::Init()
 
 //////////////////////////////////////////////////////////////////////////
 
-void Game::HandleEvents(const SDL_Event& event)
+void Game::HandleEvents(sf::Keyboard::Key key, bool isPressed)
 {
-	if (event.type == SDL_QUIT)
-	{
-		m_running = false;
-		return;
-	}
-
-	m_world.HandleEvents(event);
+	m_world.HandleEvents(key, isPressed);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Game::Update(Uint32 deltaTime)
+void Game::Update(sf::Time deltaTime)
 {
 	Engine::Update(deltaTime);
 	m_world.Update(deltaTime);

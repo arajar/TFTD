@@ -18,17 +18,115 @@ solution "TFTD"
 	local BUILD_DIR = "../build/".._OPTIONS["arch"].."/"
 
 	local CORE      = LIBS.."core"
-	local SDL_LIB   = LIBS.."SDL2-2.0.3"
-	local SDL_MIX   = LIBS.."SDL2_mixer-2.0.0"
-	local SDL_TTF   = LIBS.."SDL2_ttf-2.0.12"
-	local SDL_IMG   = LIBS.."SDL2_image-2.0.0"
+	local SFML      = LIBS.."sfml"
 	local GLM	    = LIBS.."glm"
 	local IMGUI     = LIBS.."imgui"
 	local GLEW      = LIBS.."glew-1.10.0"
+	local PUGIXML   = LIBS.."pugixml"
+	local SPINE     = LIBS.."spine"
 
 -------------------------------------------------------------------------------
 	
 	defines "GLEW_STATIC"
+	defines "SFML_STATIC"
+
+-------------------------------------------------------------------------------
+
+project "sfml"
+	targetdir(BUILD_DIR)
+	kind "StaticLib"
+	language "C++"
+
+	includedirs
+	{
+		SFML.."/include/",
+		SFML.."/src/",
+		SFML.."/extlibs/headers/AL",
+		SFML.."/extlibs/headers/jpeg",
+		SFML.."/extlibs/headers/libsndfile/windows",
+		SFML.."/extlibs/headers/libfreetype/windows",
+		GLEW.."/include",
+	}
+
+	files
+	{
+		SFML.."/src/SFML/Audio/*.cpp",
+		SFML.."/src/SFML/Graphics/*.cpp",
+		SFML.."/src/SFML/Main/*.cpp",
+		SFML.."/src/SFML/Network/*.cpp",
+		SFML.."/src/SFML/System/*.cpp",
+		SFML.."/src/SFML/Window/*.cpp",
+		SFML.."/src/SFML/Network/Win32/*.cpp",
+		SFML.."/src/SFML/System/Win32/*.cpp",
+		SFML.."/src/SFML/Window/Win32/*.cpp",
+	}
+
+	libdirs
+	{
+		BUILD_DIR,
+		SFML.."/extlibs/libs-msvc/" .. _OPTIONS["arch"],
+		GLEW.."/lib/" .. _OPTIONS["arch"],
+	}
+
+	links
+	{
+		"glew32s.lib",
+		"freetype",
+		"jpeg",
+		"openal32",
+		"sndfile",
+		"winmm",
+	}
+
+	configuration "Debug"
+		defines { "_DEBUG" }
+
+	configuration "Release"
+		defines { "NDEBUG" }
+
+-------------------------------------------------------------------------------
+
+project "pugixml"
+	targetdir(BUILD_DIR)
+	kind "StaticLib"
+	language "C++"
+
+	files
+	{
+		PUGIXML.."/src/pugixml.hpp",
+		PUGIXML.."/src/pugiconfig.hpp",
+		PUGIXML.."/src/pugixml.cpp"
+	}
+
+	configuration "Debug"
+		defines { "_DEBUG" }
+
+	configuration "Release"
+		defines { "NDEBUG" }
+
+-------------------------------------------------------------------------------
+
+project "spine"
+	targetdir(BUILD_DIR)
+	kind "StaticLib"
+	language "C"
+
+	files
+	{
+		SPINE.."/src/",
+		SPINE.."/src/**",
+	}
+
+	includedirs
+	{
+		SPINE.."/include",
+	}
+
+	configuration "Debug"
+		buildoptions { "/MDd" }
+
+	configuration "Release"
+		buildoptions { "/MD" }
 
 -------------------------------------------------------------------------------
 
@@ -45,36 +143,31 @@ project "core"
 	{
 		CORE.."/",
 		CORE.."/**",
-		SDL_LIB.."/include",
-		SDL_MIX.."/include",
-		SDL_TTF.."/include",
-		SDL_IMG.."/include",
 		GLM.."/glm",
 		IMGUI,
 		GLEW.."/include",
+		PUGIXML.."/src",
+		SFML.."/include",
+		SPINE.."/include",
 	}
 
 	libdirs 
 	{ 
-		SDL_LIB.."/lib/" .. _OPTIONS["arch"],
-		SDL_MIX.."/lib/" .. _OPTIONS["arch"],
-		SDL_TTF.."/lib/" .. _OPTIONS["arch"],
-		SDL_IMG.."/lib/" .. _OPTIONS["arch"],
 		GLEW.."/lib/" .. _OPTIONS["arch"],
 		BUILD_DIR,
+
 	}
 
 	links
 	{
 		"glew32s.lib",
-		"SDL2.lib",
-		"SDL2main.lib",
-		"SDL2test.lib",
-		"SDL2_image.lib",
-		"SDL2_mixer.lib",
-		"SDL2_ttf.lib",
-		"Opengl32.lib",
-		"imgui.lib"
+		"opengl32",
+		"imgui",
+		"pugixml",
+		"spine",
+		"sfml",
+		"jpeg",
+		"freetype",
 	}
 
 	configuration "Debug"
@@ -82,6 +175,8 @@ project "core"
 
 	configuration "Release"
 		buildoptions { "/MD" }
+
+-------------------------------------------------------------------------------
 
 project "imgui"
 	targetdir(BUILD_DIR)
@@ -125,6 +220,8 @@ project "imgui"
 			"_CRT_SECURE_NO_WARNINGS",
 		}
 
+-------------------------------------------------------------------------------
+
 project "terror"
 
 	targetdir("../release/" )
@@ -143,21 +240,15 @@ project "terror"
 		"../src/",
 		"../src/**",
 		CORE,
-		SDL_LIB.."/include",
-		SDL_MIX.."/include",
-		SDL_TTF.."/include",
-		SDL_IMG.."/include",
 		GLM.."/glm",
 		IMGUI,
 		GLEW.."/include",
+		SFML.."/include",
 	}
 
 	libdirs 
 	{ 
-		SDL_LIB.."/lib/" .. _OPTIONS["arch"],
-		SDL_MIX.."/lib/" .. _OPTIONS["arch"],
-		SDL_TTF.."/lib/" .. _OPTIONS["arch"],
-		SDL_IMG.."/lib/" .. _OPTIONS["arch"],
+		SFML.."/extlibs/libs-msvc/" .. _OPTIONS["arch"],
 		GLEW.."/lib/" .. _OPTIONS["arch"],
 		BUILD_DIR,
 	}
@@ -165,30 +256,22 @@ project "terror"
 	links
 	{
 		"glew32s.lib",
-		"SDL2.lib",
-		"SDL2main.lib",
-		"SDL2test.lib",
-		"SDL2_image.lib",
-		"SDL2_mixer.lib",
-		"SDL2_ttf.lib",
-		"Opengl32.lib",
-		"imgui.lib"
+		"opengl32",
+		"imgui",
+		"core",
+		"sfml",
+		"pugixml",
+		"freetype",
+		"jpeg",
+		"winmm",
 	}
 
 	-- Copy the needed dlls to the output dir
 	postbuildcommands
 	{
 		"echo Copying dlls...",
-		"robocopy $(SolutionDir)../../"..SDL_LIB.."/bin/" .. _OPTIONS["arch"] .. "/ $(TargetDir)  /XO /NJH /NP > log.txt",
-		"robocopy $(SolutionDir)../../"..SDL_MIX.."/bin/" .. _OPTIONS["arch"] .. "/ $(TargetDir)  /XO /NJH /NP > log.txt",
-		"robocopy $(SolutionDir)../../"..SDL_TTF.."/bin/" .. _OPTIONS["arch"] .. "/ $(TargetDir)  /XO /NJH /NP > log.txt",
-		"robocopy $(SolutionDir)../../"..SDL_IMG.."/bin/" .. _OPTIONS["arch"] .. "/ $(TargetDir)  /XO /NJH /NP > log.txt",
+		"robocopy $(SolutionDir)../../"..SFML.."/bin/" .. _OPTIONS["arch"] .. "/ $(TargetDir)  /XO /NJH /NP > log.txt",
 		"exit 0",
-	}
-
-	links
-	{
-		"core.lib",
 	}
 
 	configuration "Debug"
