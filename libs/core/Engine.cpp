@@ -26,9 +26,9 @@ namespace core
 			throw GameException("Could not create window.");
 		}
 
+		m_renderTarget.create(640, 480);
 		m_window->setFramerateLimit(60);
-
-
+		
 		m_fs.Init();
 
 		m_font.loadFromFile(m_fs["sansation.ttf"]);
@@ -46,7 +46,8 @@ namespace core
 	{
 		if (width > 0 && height > 0)
 		{
-			m_window->setSize(sf::Vector2u(width, height));
+			m_renderTarget.create(width, height);
+			m_window->create(sf::VideoMode(width, height), "tftd", sf::Style::Close | sf::Style::Resize);
 		}
 	}
 
@@ -90,6 +91,10 @@ namespace core
 				HandleEvents(event.key.code, false);
 				break;
 
+			case sf::Event::Resized:
+				Resize(m_window->getSize().x, m_window->getSize().y);
+				break;
+
 			case sf::Event::Closed:
 				m_window->close();
 				break;
@@ -107,11 +112,17 @@ namespace core
 	void Engine::BeginFrame()
 	{
 		m_window->clear(sf::Color(50, 50, 50));
+		m_renderTarget.clear(sf::Color(50, 50, 50));
 	}
 
 	void Engine::EndFrame()
 	{
+		m_renderTarget.display();
+		
+		sf::Sprite s(m_renderTarget.getTexture());
+		m_window->draw(s);
 		m_window->draw(m_statisticsText);
+
 		m_window->display();
 	}
 
@@ -126,6 +137,7 @@ namespace core
 				"Frames / Second = " + std::to_string(m_statisticsNumFrames) + "\n" +
 				"Time / Update = " + std::to_string(m_statisticsUpdateTime.asMicroseconds() / m_statisticsNumFrames) + "us");
 
+			m_statisticsText.setPosition(sf::Vector2f(5.f, 5.f));
 			m_statisticsUpdateTime -= sf::seconds(1.0f);
 			m_statisticsNumFrames = 0;
 		}

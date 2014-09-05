@@ -18,12 +18,12 @@ namespace ecs
 	{
 	}
 
-	void Sprite::Render()
+	void Sprite::Render(sf::RenderTarget& tex)
 	{
-		//m_image->Render();
+		m_image->Render(tex);
 	}
 
-	void Sprite::SetPosition(const glm::ivec2& pos)
+	void Sprite::SetPosition(const glm::vec2& pos)
 	{
 		m_image->SetPosition(pos);
 	}

@@ -73,7 +73,7 @@ void Game::Update(sf::Time deltaTime)
 
 void Game::RenderFrame()
 {
-	m_world.Render();
+	m_world.Render(m_renderTarget);
 }
 
 //////////////////////////////////////////////////////////////////////////

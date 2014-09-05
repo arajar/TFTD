@@ -10,7 +10,7 @@ namespace ecs
 		RenderSystem(core::ecs::World& world);
 
 	public:
-		virtual void Process() override;
+		virtual void Process(sf::RenderTarget& target) override;
 	};
 
 }

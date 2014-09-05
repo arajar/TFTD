@@ -26,7 +26,7 @@ namespace core
 			virtual const int GetPriority() const;
 
 		public:
-			virtual void Process() {};
+			virtual void Process(sf::RenderTarget& target) {};
 			virtual void Process(sf::Time deltaTime) {};
 			virtual void Process(sf::Keyboard::Key key, bool isPressed) {};
 

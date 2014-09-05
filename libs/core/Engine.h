@@ -43,6 +43,7 @@ namespace core
 
 	protected:
 		sf::RenderWindow*		m_window;
+		sf::RenderTexture		m_renderTarget;
 		sf::Font				m_font;
 		sf::Text				m_statisticsText;
 		sf::Time				m_statisticsUpdateTime;

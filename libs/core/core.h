@@ -41,6 +41,7 @@
 #include "filesystem/FileSystem.h"
 #include "resources/IResource.h"
 #include "util/Tweener.h"
+#include "util/Util.h"
 
 #include "ecs/ecs.h"
 

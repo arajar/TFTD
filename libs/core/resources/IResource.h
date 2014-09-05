@@ -18,24 +18,26 @@ public:
 class ITransform
 {
 public:
-	virtual void SetPosition(const glm::ivec2& position)
+	virtual void SetPosition(const glm::vec2& position)
 	{
 		m_position = position;
 	}
 
-	virtual const glm::ivec2& GetPosition() const
+	virtual const glm::vec2& GetPosition() const
 	{
 		return m_position;
 	}
 
 protected:
-	glm::ivec2 m_position;
+	glm::vec2 m_position;
 };
 
 class IRenderable : public ITransform
 {
 public:
 	IRenderable() {}
+
+	virtual void Render(sf::RenderTarget& target) = 0;
 
 	virtual const glm::ivec2& GetSize() const
 	{

@@ -5,6 +5,7 @@ namespace core
 {
 	Image::Image(const std::string& name)
 		: m_name(name)
+		, m_sprite(sf::Sprite())
 	{
 	}
 
@@ -14,32 +15,30 @@ namespace core
 
 	bool Image::Load()
 	{
-		/*
-		SDL_Surface* surface = IMG_Load(m_name.c_str());
-
-		if (surface == nullptr)
+		bool b = m_tex.loadFromFile(m_name);
+		if (b)
 		{
-			throw core::GameException(SDL_GetError());
-			return nullptr;
+			m_sprite.setTexture(m_tex);
 		}
-
-		m_size = glm::ivec2(surface->w, surface->h);
-		m_texture = SDL_CreateTextureFromSurface(ContentManager::GetInstance()->GetRenderer(), surface);
-		if (m_texture == nullptr)
-		{
-			throw core::GameException(SDL_GetError());
-			return nullptr;
-		}
-
-		SDL_FreeSurface(surface);
-
-		return m_texture != nullptr;
-		*/
-		return true;
+		
+		return b;
 	}
 
 	ResourceType Image::GetType()
 	{
 		return ResourceType::IMAGE;
 	}
+
+	void Image::Render(sf::RenderTarget& target)
+	{
+		target.draw(m_sprite);
+	}
+
+	void Image::SetPosition(const glm::vec2& position)
+	{
+		IRenderable::SetPosition(position);
+
+		m_sprite.setPosition(sf::Vector2f(position.x, position.y));
+	}
+
 }

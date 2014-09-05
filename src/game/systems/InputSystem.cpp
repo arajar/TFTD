@@ -26,10 +26,10 @@ namespace ecs
 				dir.x = isPressed ? 1.0f : 0.0f;
 				break;
 			case sf::Keyboard::Up:
-				dir.y = isPressed ? 1.0f : 0.0f;
+				dir.y = isPressed ? -1.0f : 0.0f;
 				break;
 			case sf::Keyboard::Down:
-				dir.y = isPressed ? -1.0f : 0.0f;
+				dir.y = isPressed ? 1.0f : 0.0f;
 				break;
 			}
 		}

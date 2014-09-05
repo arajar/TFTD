@@ -19,7 +19,7 @@ namespace core
 
 		public:
 			void Update(sf::Time deltaTime);
-			void Render();
+			void Render(sf::RenderTarget& target);
 			void HandleEvents(sf::Keyboard::Key key, bool isPressed);
 
 		public:

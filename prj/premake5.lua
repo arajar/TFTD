@@ -12,6 +12,9 @@ solution "TFTD"
   	startproject "terror"
 	addCommonConfig()
 
+	configuration "Debug"
+		targetsuffix "-d"
+
 -------------------------------------------------------------------------------
 
 	local LIBS      = "../libs/"

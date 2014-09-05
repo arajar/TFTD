@@ -18,8 +18,8 @@ namespace ecs
 
 	public:
 		void SetImage(core::Image* img) { m_image = img; }
-		void Render();
-		void SetPosition(const glm::ivec2& pos);
+		void Render(sf::RenderTarget& tex);
+		void SetPosition(const glm::vec2& pos);
 
 	private:
 		core::Image* m_image;

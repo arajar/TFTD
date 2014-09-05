@@ -27,13 +27,13 @@ namespace core
 			}
 		}
 
-		void World::Render()
+		void World::Render(sf::RenderTarget& target)
 		{
 			for (auto& system : m_systems)
 			{
 				if (system->GetType() == SystemType::Render)
 				{
-					system->Process();
+					system->Process(target);
 				}
 			}
 		}
