@@ -7,6 +7,7 @@ namespace core
 	{
 		class EntityTemplate;
 		class System;
+		class Light;
 
 		class World
 		{
@@ -30,6 +31,9 @@ namespace core
 			template <typename C = Component>
 			C* AddComponent(const Entity::Id& entity);
 
+			template <typename C>
+			ecs::Light* AddComponent(const Entity::Id& entity, core::ILight* light);
+
 			template <typename C = Component>
 			bool HasComponent(const Entity::Id& entity) const;
 
@@ -47,7 +51,7 @@ namespace core
 
 		public:
 			template<typename S>
-			void AddSystem();
+			S* AddSystem();
 
 		private:
 			typedef std::vector<Component*> ComponentArray;

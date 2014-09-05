@@ -1,25 +1,28 @@
 #pragma once
 #include "LightBase.h"
 
-//////////////////////////////////////////////////////////////////////////
-
-class SpotLight : public LightBase
+namespace core
 {
-public:
-	SpotLight();
+	//////////////////////////////////////////////////////////////////////////
 
-public:
-	virtual void Generate(std::vector<Wall> wall) override;
+	class SpotLight : public LightBase
+	{
+	public:
+		SpotLight();
 
-	void SetAngle(float angle);
-	void SetOpeningAngle(float angle);
+	public:
+		virtual void Generate(std::vector<Wall> wall) override;
 
-public:
-	virtual LightType GetType() const override;
+		void SetAngle(float angle);
+		void SetOpeningAngle(float angle);
 
-private:
-	float m_angle;
-	float m_openingAngle;
-};
+	public:
+		virtual LightType GetType() const override;
 
-//////////////////////////////////////////////////////////////////////////
+	private:
+		float m_angle;
+		float m_openingAngle;
+	};
+
+	//////////////////////////////////////////////////////////////////////////
+}

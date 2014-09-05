@@ -43,6 +43,8 @@
 #include "util/Tweener.h"
 #include "util/Util.h"
 
+#include "lights/Light.h"
+
 #include "ecs/ecs.h"
 
 #include "imgui.h"

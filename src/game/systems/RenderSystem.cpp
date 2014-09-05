@@ -9,6 +9,7 @@ namespace ecs
 	RenderSystem::RenderSystem(core::ecs::World& world)
 		: System(world)
 	{
+		//m_priority = 1;
 		m_type = core::ecs::SystemType::Render;
 	}
 

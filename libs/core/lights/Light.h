@@ -1,7 +1,6 @@
 #pragma once
 
 //////////////////////////////////////////////////////////////////////////
-
 struct Wall
 {
 	Wall(sf::Vector2f p1, sf::Vector2f p2)
@@ -51,36 +50,39 @@ enum class LightQuality
 
 //////////////////////////////////////////////////////////////////////////
 
-// Interface for Lights
-class ILight
+namespace core
 {
-public:
-	virtual ~ILight() {}
+	// Interface for Lights
+	class ILight
+	{
+	public:
+		virtual ~ILight() {}
 
-public:
-	virtual void Render(sf::RenderTarget* rt) = 0;
+	public:
+		virtual void Render(sf::RenderTarget* rt) = 0;
 
-public:
-	virtual void SetPosition(const sf::Vector2f& pos) = 0;
-	virtual void SetColor(const sf::Color& color) = 0;
-	virtual void SetQuality(LightQuality quality) = 0;
-	virtual void SetIntensity(float intensity) = 0;
-	virtual void SetRadius(float radius) = 0;
+	public:
+		virtual void SetPosition(const sf::Vector2f& pos) = 0;
+		virtual void SetColor(const sf::Color& color) = 0;
+		virtual void SetQuality(LightQuality quality) = 0;
+		virtual void SetIntensity(float intensity) = 0;
+		virtual void SetRadius(float radius) = 0;
 
-	virtual const sf::Vector2f& GetPosition() const = 0;
-	virtual const sf::Color& GetColor() const = 0;
-	virtual LightQuality GetQuality() const = 0;
-	virtual float GetIntensity() const = 0;
-	virtual float GetRadius() const = 0;
+		virtual const sf::Vector2f& GetPosition() const = 0;
+		virtual const sf::Color& GetColor() const = 0;
+		virtual LightQuality GetQuality() const = 0;
+		virtual float GetIntensity() const = 0;
+		virtual float GetRadius() const = 0;
 
-	virtual LightType GetType() const = 0;
+		virtual LightType GetType() const = 0;
 
-	virtual void SetActive(bool active) = 0;
-	virtual bool IsActive() = 0;
+		virtual void SetActive(bool active) = 0;
+		virtual bool IsActive() = 0;
 
-public:
-	virtual void Generate(std::vector<Wall> walls) = 0;
+	public:
+		virtual void Generate(std::vector<Wall> walls) = 0;
 
-};
+	};
 
-//////////////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////////////
+}

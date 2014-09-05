@@ -1,6 +1,7 @@
 #pragma once
 #include "ecs.h"
 #include "World.h"
+#include "ecs/Light.h"
 
 namespace core
 {
@@ -17,6 +18,16 @@ namespace core
 			}
 
 			return nullptr;
+		}
+
+		template <typename C>
+		ecs::Light* World::AddComponent(const Entity::Id& entity, core::ILight* light)
+		{
+			// An entity can have many lights
+			ecs::Light* ecslight = new ecs::Light();
+			ecslight->light = light;
+			m_entities[entity].push_back(ecslight);
+			return ecslight;
 		}
 
 		template <typename C>
@@ -135,15 +146,18 @@ namespace core
 		}
 
 		template<typename S>
-		void World::AddSystem()
+		S* World::AddSystem()
 		{
 			auto sort = [](const System* a, const System* b)
 			{
 				return a->GetPriority() < b->GetPriority();
 			};
 
-			m_systems.push_back(new S(*this));
+			S* syst = new S(*this);
+			m_systems.push_back(syst);
 			std::sort(m_systems.begin(), m_systems.end(), sort);
+
+			return syst;
 		}
 	}
 }

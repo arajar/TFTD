@@ -5,9 +5,13 @@
 #include "MovementSystem.h"
 #include "RenderSystem.h"
 #include "InputSystem.h"
+#include "LightSystem.h"
 #include "Sprite.h"
 #include "Position.h"
 #include "InputController.h"
+
+#include "lights/OmniLight.h"
+#include "lights/SpotLight.h"
 
 //////////////////////////////////////////////////////////////////////////
 
@@ -37,12 +41,19 @@ bool Game::Init()
 	auto img = core::ContentManager::GetInstance()->Get<core::Image>("p1_stand.png");
 	s->SetImage(img);
 
-	p->x = 10;
-	p->y = 10;
+	core::OmniLight* omni = new core::OmniLight();
+	omni->SetPosition(sf::Vector2f(375, 275));
+	omni->SetIntensity(255.f);
+	omni->SetRadius(256.f);
+	omni->SetQuality(LightQuality::ULTRA);
+	omni->SetColor(sf::Color::White);
+
+	m_world.AddComponent<core::ecs::Light>(entity, omni);
 
 	m_world.AddSystem<ecs::InputSystem>();
 	m_world.AddSystem<ecs::MovementSystem>();
 	m_world.AddSystem<ecs::RenderSystem>();
+	m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(0, 0, 0));
 
 	bool initialized = false;
 	if (m_gameConfig.Init())
