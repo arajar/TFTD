@@ -118,6 +118,7 @@ project "spine"
 	{
 		SPINE.."/src/",
 		SPINE.."/src/**",
+		SPINE.."/include/**",
 	}
 
 	includedirs
@@ -247,6 +248,7 @@ project "terror"
 		IMGUI,
 		GLEW.."/include",
 		SFML.."/include",
+		SPINE.."/include",
 	}
 
 	libdirs 
@@ -267,6 +269,7 @@ project "terror"
 		"freetype",
 		"jpeg",
 		"winmm",
+		"spine",
 	}
 
 	-- Copy the needed dlls to the output dir
@@ -277,13 +280,13 @@ project "terror"
 		"exit 0",
 	}
 
+	targetname( "TFTD" .. _OPTIONS["arch"])
+
 	configuration "Debug"
 		buildoptions { "/MDd" }
-		targetname( "TFTD" .. _OPTIONS["arch"] .. "_d" )
 
 	configuration "Release"
 		buildoptions { "/MD" }
-		targetname( "TFTD" .. _OPTIONS["arch"])
 
 ---------------------------------------------------------------------------
 

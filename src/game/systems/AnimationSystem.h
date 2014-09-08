@@ -2,16 +2,15 @@
 
 #include "ecs/System.h"
 
-class Entity;
-
 namespace ecs
 {
-	class MovementSystem : public core::ecs::System
+	class AnimationSystem : public core::ecs::System
 	{
 	public:
-		MovementSystem(core::ecs::World& world);
+		AnimationSystem(core::ecs::World& world);
 
 	public:
 		virtual void Process(sf::Time deltaTime) override;
 	};
+
 }

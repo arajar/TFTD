@@ -6,6 +6,7 @@ namespace core
 	class Engine
 	{
 	public:
+		static sf::Font	DEBUG_FONT;
 		static const int FPS;
 		static const sf::Time TIME_PER_FRAME;
 
@@ -44,7 +45,6 @@ namespace core
 	protected:
 		sf::RenderWindow*		m_window;
 		sf::RenderTexture		m_renderTarget;
-		sf::Font				m_font;
 		sf::Text				m_statisticsText;
 		sf::Time				m_statisticsUpdateTime;
 

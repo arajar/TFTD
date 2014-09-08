@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "MovementSystem.h"
 #include "Position.h"
-#include "InputController.h"
+#include "Transform.h"
 
 namespace ecs
 {
@@ -14,13 +14,14 @@ namespace ecs
 	void MovementSystem::Process(sf::Time deltaTime)
 	{
 		const float speed = 1.f;
-		for (auto e : m_world.GetEntitiesWith<ecs::Position, ecs::Direction>())
+		for (auto e : m_world.GetEntitiesWith<ecs::Transform, ecs::Direction>())
 		{
-			auto &p = *m_world.GetComponent<ecs::Position>(e);
-			auto &d = *m_world.GetComponent<ecs::Direction>(e);
+			auto& t = *m_world.GetComponent<ecs::Transform>(e);
+			auto& d = *m_world.GetComponent<ecs::Direction>(e);
 
-			p.x += d.x * deltaTime.asMilliseconds() * speed;
-			p.y += d.y * deltaTime.asMilliseconds() * speed;
+			auto dt = static_cast<float>(deltaTime.asMilliseconds());
+
+			t.Translate(d.dir * dt * speed);
 		}
 	}	
 }

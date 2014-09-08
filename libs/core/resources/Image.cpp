@@ -34,7 +34,7 @@ namespace core
 		target.draw(m_sprite);
 	}
 
-	void Image::SetPosition(const glm::vec2& position)
+	void Image::SetPosition(const glm::vec3& position)
 	{
 		IRenderable::SetPosition(position);
 

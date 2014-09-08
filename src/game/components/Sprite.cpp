@@ -23,7 +23,7 @@ namespace ecs
 		m_image->Render(tex);
 	}
 
-	void Sprite::SetPosition(const glm::vec2& pos)
+	void Sprite::SetPosition(const glm::vec3& pos)
 	{
 		m_image->SetPosition(pos);
 	}

@@ -17,21 +17,25 @@ namespace ecs
 		{
 			auto &dir = *m_world.GetComponent<ecs::Direction>(e);
 
+			float x = 0;
+			float y = 0;
 			switch (key)
 			{
 			case sf::Keyboard::Left:
-				dir.x = isPressed ? -1.0f : 0.0f;
+				x = isPressed ? -1.0f : 0.0f;
 				break;
 			case sf::Keyboard::Right:
-				dir.x = isPressed ? 1.0f : 0.0f;
+				x = isPressed ? 1.0f : 0.0f;
 				break;
 			case sf::Keyboard::Up:
-				dir.y = isPressed ? -1.0f : 0.0f;
+				y = isPressed ? -1.0f : 0.0f;
 				break;
 			case sf::Keyboard::Down:
-				dir.y = isPressed ? 1.0f : 0.0f;
+				y = isPressed ? 1.0f : 0.0f;
 				break;
 			}
+
+			dir.dir = glm::vec3(x, y, 0.f);
 		}
 	}
 }

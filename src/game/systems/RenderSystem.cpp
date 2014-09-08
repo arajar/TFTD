@@ -1,8 +1,7 @@
 #include "pch.h"
 #include "RenderSystem.h"
-#include "Sprite.h"
-#include "Position.h"
-//#include "Direction.h"
+#include "Renderable.h"
+#include "Transform.h"
 
 namespace ecs
 {
@@ -15,13 +14,30 @@ namespace ecs
 
 	void RenderSystem::Process(sf::RenderTarget& target)
 	{
-		for (auto e : m_world.GetEntitiesWith<ecs::Position, ecs::Sprite>())
+		for (auto e : m_world.GetEntitiesWith<ecs::Transform, ecs::Renderable>())
 		{
-			auto &p = *m_world.GetComponent<ecs::Position>(e);
-			auto &s = *m_world.GetComponent<ecs::Sprite>(e);
+			auto& p = *m_world.GetComponent<ecs::Transform>(e);
+			auto& r = *m_world.GetComponent<ecs::Renderable>(e);
 
-			s.SetPosition(glm::vec2(p.x, p.y));
-			s.Render(target);
+			r.SetPosition(p.GetPosition());
+			r.Render(target);
+		}
+	}
+
+	RenderDebugSystem::RenderDebugSystem(core::ecs::World& world)
+		: System(world)
+	{
+		m_priority = 1000;
+		m_type = core::ecs::SystemType::Render;
+	}
+
+	void RenderDebugSystem::Process(sf::RenderTarget& target)
+	{
+		for (auto e : m_world.GetEntitiesWith<ecs::Renderable>())
+		{
+			auto& r = *m_world.GetComponent<ecs::Renderable>(e);
+
+			r.RenderDebug(target);
 		}
 	}
 }

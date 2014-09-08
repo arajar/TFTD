@@ -7,14 +7,12 @@ namespace ecs
 	class Position : public core::ecs::Component
 	{
 	public:
-		float x = 0.f;
-		float y = 0.f;
+		glm::vec3 pos;
 	};
 
 	class Direction : public core::ecs::Component
 	{
 	public:
-		float x = 0.f;
-		float y = 0.f;
+		glm::vec3 dir;
 	};
 }

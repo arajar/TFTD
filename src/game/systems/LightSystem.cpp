@@ -55,7 +55,7 @@ namespace ecs
 
 			if (light.light->IsActive())
 			{
-				light.light->SetPosition(sf::Vector2f(p.x, p.y));
+				light.light->SetPosition(sf::Vector2f(p.pos.x, p.pos.y));
 				light.light->Generate(m_wall);
 				light.light->Render(&m_renderImg);
 			}

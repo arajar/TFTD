@@ -18,18 +18,18 @@ public:
 class ITransform
 {
 public:
-	virtual void SetPosition(const glm::vec2& position)
+	virtual void SetPosition(const glm::vec3& position)
 	{
 		m_position = position;
 	}
 
-	virtual const glm::vec2& GetPosition() const
+	virtual const glm::vec3& GetPosition() const
 	{
 		return m_position;
 	}
 
 protected:
-	glm::vec2 m_position;
+	glm::vec3 m_position;
 };
 
 class IRenderable : public ITransform

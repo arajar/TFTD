@@ -16,7 +16,7 @@ namespace core
 		virtual void Render(sf::RenderTarget& target) override;
 
 	public: // ITransform interface
-		virtual void SetPosition(const glm::vec2& position) override;
+		virtual void SetPosition(const glm::vec3& position) override;
 
 	private:
 		const std::string m_name;

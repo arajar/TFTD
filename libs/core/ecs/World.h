@@ -43,10 +43,10 @@ namespace core
 			template <typename C = Component>
 			bool RemoveComponent(const Entity::Id& entity);
 
-			template<typename A = Component>
+			template<typename A>
 			const std::vector<Entity::Id> GetEntitiesWith();
 
-			template<typename A = Component, typename B = Component>
+			template<typename A, typename B>
 			const std::vector<Entity::Id> GetEntitiesWith();
 
 		public:

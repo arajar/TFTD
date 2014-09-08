@@ -6,6 +6,7 @@ namespace core
 {
 	const int Engine::FPS = 60;
 	const sf::Time Engine::TIME_PER_FRAME = sf::seconds(1.f / Engine::FPS);
+	sf::Font Engine::DEBUG_FONT = sf::Font();
 
 	Engine::Engine()
 		: m_window(nullptr)
@@ -31,8 +32,8 @@ namespace core
 		
 		m_fs.Init();
 
-		m_font.loadFromFile(m_fs["sansation.ttf"]);
-		m_statisticsText.setFont(m_font);
+		DEBUG_FONT.loadFromFile(m_fs["sansation.ttf"]);
+		m_statisticsText.setFont(DEBUG_FONT);
 		m_statisticsText.setPosition(5.f, 5.f);
 		m_statisticsText.setCharacterSize(14);
 		

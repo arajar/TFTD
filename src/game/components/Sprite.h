@@ -1,12 +1,12 @@
 #pragma once
 
-#include "ecs/Component.h"
+#include "components/Renderable.h"
 
 namespace ecs
 {
 	class core::Image;
 
-	class Sprite : public core::ecs::Component
+	class Sprite : public ecs::Renderable
 	{
 	public:
 		static std::string Type;
@@ -18,8 +18,8 @@ namespace ecs
 
 	public:
 		void SetImage(core::Image* img) { m_image = img; }
-		void Render(sf::RenderTarget& tex);
-		void SetPosition(const glm::vec2& pos);
+		virtual void Render(sf::RenderTarget& tex) override;
+		virtual void SetPosition(const glm::vec3& pos) override;
 
 	private:
 		core::Image* m_image;

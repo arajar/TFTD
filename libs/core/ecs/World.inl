@@ -23,11 +23,15 @@ namespace core
 		template <typename C>
 		ecs::Light* World::AddComponent(const Entity::Id& entity, core::ILight* light)
 		{
-			// An entity can have many lights
-			ecs::Light* ecslight = new ecs::Light();
-			ecslight->light = light;
-			m_entities[entity].push_back(ecslight);
-			return ecslight;
+			if (!HasComponent<C>(entity))
+			{
+				ecs::Light* ecslight = new ecs::Light();
+				ecslight->light = light;
+				m_entities[entity].push_back(ecslight);
+				return ecslight;
+			}
+			
+			return nullptr;
 		}
 
 		template <typename C>

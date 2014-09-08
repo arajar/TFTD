@@ -61,6 +61,11 @@ namespace ecs
 		m_rotation *= rotation;
 	}
 
+	void Transform::Translate(const glm::vec3& pos)
+	{
+		m_position += pos;
+	}
+
 	const glm::mat4 Transform::GetTransform()
 	{
 		glm::mat4 transform;

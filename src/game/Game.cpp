@@ -6,9 +6,12 @@
 #include "RenderSystem.h"
 #include "InputSystem.h"
 #include "LightSystem.h"
+#include "AnimationSystem.h"
 #include "Sprite.h"
 #include "Position.h"
+#include "Transform.h"
 #include "InputController.h"
+#include "Skeleton2D.h"
 
 #include "lights/OmniLight.h"
 #include "lights/SpotLight.h"
@@ -16,7 +19,7 @@
 //////////////////////////////////////////////////////////////////////////
 
 Game::Game()
-: m_gameConfig("config.cfg")
+	: m_gameConfig("config.cfg")
 {
 
 }
@@ -33,27 +36,34 @@ bool Game::Init()
 {
 	Engine::Init();
 
-	auto entity = m_world.CreateEntity();
-	auto p = m_world.AddComponent<ecs::Position>(entity);
-	m_world.AddComponent<ecs::Direction>(entity);
-	m_world.AddComponent<ecs::InputController>(entity);
-	auto s = m_world.AddComponent<ecs::Sprite>(entity);
-	auto img = core::ContentManager::GetInstance()->Get<core::Image>("p1_stand.png");
-	s->SetImage(img);
+	{
+		auto entity = m_world.CreateEntity();
+		auto p = m_world.AddComponent<ecs::Transform>(entity);
+		m_world.AddComponent<ecs::Direction>(entity);
+		m_world.AddComponent<ecs::InputController>(entity);
+		auto s = m_world.AddComponent<ecs::Skeleton2D>(entity);
+		s->Init("goblin", m_fs["goblins-ffd.atlas"], m_fs["goblins-ffd.json"]);
+		s->SetAnimation("walk");
+		s->Scale(sf::Vector2f(0.5f, 0.5f));
+		p->SetPosition(glm::vec3(100, 100, 0));
+	}
 
-	core::OmniLight* omni = new core::OmniLight();
-	omni->SetPosition(sf::Vector2f(375, 275));
-	omni->SetIntensity(255.f);
-	omni->SetRadius(256.f);
-	omni->SetQuality(LightQuality::ULTRA);
-	omni->SetColor(sf::Color::White);
-
-	m_world.AddComponent<core::ecs::Light>(entity, omni);
+	{
+		auto entity = m_world.CreateEntity();
+		auto p = m_world.AddComponent<ecs::Transform>(entity);
+		m_world.AddComponent<ecs::Direction>(entity);
+		auto s = m_world.AddComponent<ecs::Skeleton2D>(entity);
+		s->Init("goblingirl", m_fs["goblins-ffd.atlas"], m_fs["goblins-ffd.json"]);
+		s->SetAnimation("walk");
+		p->SetPosition(glm::vec3(300, 300, 0));
+	}
 
 	m_world.AddSystem<ecs::InputSystem>();
 	m_world.AddSystem<ecs::MovementSystem>();
 	m_world.AddSystem<ecs::RenderSystem>();
-	m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(0, 0, 0));
+	m_world.AddSystem<ecs::AnimationSystem>();
+	m_world.AddSystem<ecs::RenderDebugSystem>();
+	//m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(255, 50, 50));
 
 	bool initialized = false;
 	if (m_gameConfig.Init())

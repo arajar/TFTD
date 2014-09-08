@@ -21,6 +21,8 @@ namespace ecs
 		void SetScale(const glm::vec3& scale);
 		void SetRotation(const glm::quat& rotation);
 
+		void Translate(const glm::vec3& pos);
+
 	public:
 		static std::string Type;
 
