@@ -53,6 +53,15 @@ namespace core
 			template<typename S>
 			S* AddSystem();
 
+			template<typename S>
+			bool HasSystem() const;
+
+			template<typename S>
+			S* GetSystem();
+
+			template<typename S>
+			bool RemoveSystem();
+
 		private:
 			typedef std::vector<Component*> ComponentArray;
 			std::map<Entity::Id, ComponentArray> m_entities;

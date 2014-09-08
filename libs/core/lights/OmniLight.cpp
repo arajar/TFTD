@@ -20,8 +20,8 @@ namespace core
 
 		for (int i = 0; i < (int)m_quality; i++)
 		{
-			sf::Vector2f p1(sf::Vector2f((float)((float)m_radius * cos((float)i * buf)), (float)((float)m_radius * sin((float)i * buf))));
-			sf::Vector2f p2(sf::Vector2f((float)((float)m_radius * cos((float)(i + 1) * buf)), (float)((float)m_radius * sin((float)(i + 1) * buf))));
+			glm::vec2 p1(glm::vec2((float)((float)m_radius * cos((float)i * buf)), (float)((float)m_radius * sin((float)i * buf))));
+			glm::vec2 p2(glm::vec2((float)((float)m_radius * cos((float)(i + 1) * buf)), (float)((float)m_radius * sin((float)(i + 1) * buf))));
 			AddTriangle(p1, p2, 0, walls);
 		}
 	}

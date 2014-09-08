@@ -62,13 +62,13 @@ namespace core
 		virtual void Render(sf::RenderTarget* rt) = 0;
 
 	public:
-		virtual void SetPosition(const sf::Vector2f& pos) = 0;
+		virtual void SetPosition(const glm::vec2& pos) = 0;
 		virtual void SetColor(const sf::Color& color) = 0;
 		virtual void SetQuality(LightQuality quality) = 0;
 		virtual void SetIntensity(float intensity) = 0;
 		virtual void SetRadius(float radius) = 0;
 
-		virtual const sf::Vector2f& GetPosition() const = 0;
+		virtual const glm::vec2& GetPosition() const = 0;
 		virtual const sf::Color& GetColor() const = 0;
 		virtual LightQuality GetQuality() const = 0;
 		virtual float GetIntensity() const = 0;

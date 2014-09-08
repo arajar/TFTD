@@ -46,6 +46,15 @@ bool Game::Init()
 		s->SetAnimation("walk");
 		s->Scale(sf::Vector2f(0.5f, 0.5f));
 		p->SetPosition(glm::vec3(100, 100, 0));
+
+		core::OmniLight* omni = new core::OmniLight();
+		omni->SetPosition(glm::vec2(375, 275));
+		omni->SetIntensity(255);
+		omni->SetRadius(400.f);
+		omni->SetQuality(LightQuality::ULTRA);
+		omni->SetColor(sf::Color::White);
+
+		m_world.AddComponent<core::ecs::Light>(entity, omni);
 	}
 
 	{
@@ -62,8 +71,7 @@ bool Game::Init()
 	m_world.AddSystem<ecs::MovementSystem>();
 	m_world.AddSystem<ecs::RenderSystem>();
 	m_world.AddSystem<ecs::AnimationSystem>();
-	m_world.AddSystem<ecs::RenderDebugSystem>();
-	//m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(255, 50, 50));
+	m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(50, 50, 50));
 
 	bool initialized = false;
 	if (m_gameConfig.Init())
@@ -80,6 +88,18 @@ bool Game::Init()
 void Game::HandleEvents(sf::Keyboard::Key key, bool isPressed)
 {
 	m_world.HandleEvents(key, isPressed);
+
+	if (key == sf::Keyboard::F1 && isPressed)
+	{
+		if (m_world.HasSystem<ecs::RenderDebugSystem>())
+		{
+			m_world.RemoveSystem<ecs::RenderDebugSystem>();
+		}
+		else
+		{
+			m_world.AddSystem<ecs::RenderDebugSystem>();
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

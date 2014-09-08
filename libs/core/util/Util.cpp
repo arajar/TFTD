@@ -1,9 +1,9 @@
 #include "core.h"
 #include "Util.h"
 
-sf::Vector2f Util::Intersect(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2)
+const glm::vec2 Util::Intersect(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& q1, const glm::vec2& q2)
 {
-	sf::Vector2f i;
+	glm::vec2 i;
 
 	if ((p2.x - p1.x) == 0 && (q2.x - q1.x) == 0)
 	{
@@ -43,9 +43,9 @@ sf::Vector2f Util::Intersect(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, 
 	return i;
 }
 
-sf::Vector2f Util::Collision(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, sf::Vector2f q2)
+const glm::vec2 Util::Collision(const glm::vec2& p1, const glm::vec2& p2, const glm::vec2& q1, const glm::vec2& q2)
 {
-	sf::Vector2f i = Intersect(p1, p2, q1, q2);
+	glm::vec2 i = Intersect(p1, p2, q1, q2);
 
 	if (((i.x >= p1.x - 0.1 && i.x <= p2.x + 0.1)
 		|| (i.x >= p2.x - 0.1 && i.x <= p1.x + 0.1))
@@ -60,6 +60,6 @@ sf::Vector2f Util::Collision(sf::Vector2f p1, sf::Vector2f p2, sf::Vector2f q1, 
 	}
 	else
 	{
-		return sf::Vector2f(0, 0);
+		return glm::vec2(0, 0);
 	}
 }

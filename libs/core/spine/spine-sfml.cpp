@@ -234,13 +234,18 @@ namespace spine
 
 	void SkeletonDrawable::drawDebug(sf::RenderTarget& target)
 	{
+		sf::VertexArray lines(sf::LinesStrip, skeleton->slotsCount);
+
 		for (int i = 0; i < skeleton->slotsCount; ++i)
 		{
 			spSlot* slot = skeleton->drawOrder[i];
 			m_debugText.setString(slot->bone->data->name);
 			m_debugText.setPosition(sf::Vector2f(slot->bone->worldX + skeleton->x, slot->bone->worldY + skeleton->y));
 			target.draw(m_debugText);
-		}
-	}
 
+			lines[i].position = sf::Vector2f(slot->bone->worldX + skeleton->x, slot->bone->worldY + skeleton->y);
+		}
+
+		target.draw(lines);
+	}
 }

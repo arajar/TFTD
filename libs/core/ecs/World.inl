@@ -163,5 +163,55 @@ namespace core
 
 			return syst;
 		}
+
+		template<typename S>
+		bool World::HasSystem() const
+		{
+			for (auto& system : m_systems)
+			{
+				if (dynamic_cast<S*>(system))
+				{
+					return true;
+				}
+			}
+
+			return false;
+		}
+
+		template<typename S>
+		S* World::GetSystem()
+		{
+			for (auto& system : m_systems)
+			{
+				auto s = dynamic_cast<S*>(system);
+				if (s)
+				{
+					return s;
+				}
+			}
+
+			return nullptr;
+		}
+
+		template<typename S>
+		bool World::RemoveSystem()
+		{
+			for (auto& system : m_systems)
+			{
+				auto s = dynamic_cast<S*>(system);
+				if (s)
+				{
+					auto it = std::find(m_systems.begin(), m_systems.end(), s);
+					if (it != m_systems.end())
+					{
+						m_systems.erase(it);
+						delete s;
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
 	}
 }

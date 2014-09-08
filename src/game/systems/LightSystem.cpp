@@ -4,7 +4,7 @@
 #include "ecs/Light.h"
 #include "lights/Light.h"
 
-#include "Position.h"
+#include "Transform.h"
 
 namespace ecs
 {
@@ -48,14 +48,14 @@ namespace ecs
 		m_renderImg.clear(m_ambientColor);
 		m_blurEffect.setParameter("offset", 0.005f * m_lightSmooth);
 
-		for (auto e : m_world.GetEntitiesWith<ecs::Position, core::ecs::Light>())
+		for (auto e : m_world.GetEntitiesWith<ecs::Transform, core::ecs::Light>())
 		{
-			auto& p = *m_world.GetComponent<ecs::Position>(e);
+			auto& p = *m_world.GetComponent<ecs::Transform>(e);
 			core::ecs::Light& light = *m_world.GetComponent<core::ecs::Light>(e);
 
 			if (light.light->IsActive())
 			{
-				light.light->SetPosition(sf::Vector2f(p.pos.x, p.pos.y));
+				light.light->SetPosition(glm::vec2(p.GetPosition()));
 				light.light->Generate(m_wall);
 				light.light->Render(&m_renderImg);
 			}

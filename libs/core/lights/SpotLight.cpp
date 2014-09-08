@@ -21,9 +21,9 @@ namespace core
 		float angle = m_angle * glm::pi<float>() / 180.f;
 		float o_angle = m_openingAngle * glm::pi<float>() / 180.f;
 
-		AddTriangle(sf::Vector2f((m_radius*cos(angle + o_angle * 0.5f))
+		AddTriangle(glm::vec2((m_radius*cos(angle + o_angle * 0.5f))
 			, (m_radius*sin(angle + o_angle * 0.5f))),
-			sf::Vector2f((m_radius*cos(angle - o_angle * 0.5f))
+			glm::vec2((m_radius*cos(angle - o_angle * 0.5f))
 			, (m_radius*sin(angle - o_angle * 0.5f))), 0, wall);
 	}
 
