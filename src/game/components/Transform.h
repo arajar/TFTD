@@ -8,7 +8,7 @@ namespace ecs
 	{
 	public:
 		Transform();
-		Transform(const glm::vec3& pos);
+		explicit Transform(const glm::vec3& pos);
 		Transform(const glm::vec3& pos, const glm::vec3& scale);
 		Transform(const glm::vec3& pos, const glm::vec3& scale, const glm::quat& rotation);
 

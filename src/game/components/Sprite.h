@@ -13,7 +13,7 @@ namespace ecs
 
 	public:
 		Sprite();
-		Sprite(core::Image* image);
+		explicit Sprite(core::Image* image);
 		virtual ~Sprite();
 
 	public:

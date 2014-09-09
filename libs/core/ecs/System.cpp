@@ -17,12 +17,12 @@ namespace core
 		{
 		}
 
-		const SystemType System::GetType() const
+		SystemType System::GetType() const
 		{
 			return m_type;
 		}
 
-		const int System::GetPriority() const
+		int System::GetPriority() const
 		{
 			return m_priority;
 		}

@@ -16,7 +16,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 
 	template<class ValueType>
-	Grid<ValueType>::Grid(uint rows, uint cols, const ValueType& initialValue)
+	Grid<ValueType>::Grid(glm::uint rows, glm::uint cols, const ValueType& initialValue)
 		: m_numRows(rows)
 		, m_numCols(cols)
 		, m_array(0)
@@ -27,7 +27,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 
 	template<class ValueType>
-	uint Grid<ValueType>::GetNumCols() const 
+	glm::uint Grid<ValueType>::GetNumCols() const 
 	{
 		return m_numCols;
 	}
@@ -35,7 +35,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 
 	template<class ValueType>
-	uint Grid<ValueType>::GetNumRows() const 
+	glm::uint Grid<ValueType>::GetNumRows() const 
 	{
 		return m_numRows;
 	}
@@ -61,7 +61,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 
 	template<class ValueType>
-	void Grid<ValueType>::Resize(uint rows, uint cols, const ValueType& initialValue) 
+	void Grid<ValueType>::Resize(glm::uint rows, glm::uint cols, const ValueType& initialValue) 
 	{
 		m_numRows = rows;
 		m_numCols = cols;
@@ -76,7 +76,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 	
 	template<class ValueType>
-	ValueType* Grid<ValueType>::operator[](uint row)
+	ValueType* Grid<ValueType>::operator[](glm::uint row)
 	{
 		return &m_array[row * m_numCols];
 	}
@@ -84,7 +84,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 	
 	template<class ValueType>
-	const ValueType* Grid<ValueType>::operator[](uint row) const
+	const ValueType* Grid<ValueType>::operator[](glm::uint row) const
 	{
 		return &m_array[row * m_numCols];
 	}

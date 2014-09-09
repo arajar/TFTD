@@ -16,13 +16,13 @@ namespace spine
 		float timeScale;
 		sf::VertexArray* vertexArray;
 
-		SkeletonDrawable(spSkeletonData* skeleton, spAnimationStateData* stateData = 0);
+		explicit SkeletonDrawable(spSkeletonData* skeleton, spAnimationStateData* stateData = 0);
 		~SkeletonDrawable();
 
 	public:
 		void Update(sf::Time deltaTime);
 
-		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 		virtual void drawDebug(sf::RenderTarget& target);
 
 	private:

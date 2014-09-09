@@ -40,5 +40,4 @@ namespace core
 
 		m_sprite.setPosition(sf::Vector2f(position.x, position.y));
 	}
-
 }

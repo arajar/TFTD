@@ -58,7 +58,7 @@ void Singleton<T>::Destroy()
 template <class T>
 Singleton<T>::Singleton()
 {
-	s_instance.reset((T*)this);
+	s_instance.reset(static_cast<T*>(this));
 }
 
 //////////////////////////////////////////////////////////////////////////

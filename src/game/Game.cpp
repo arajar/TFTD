@@ -12,6 +12,7 @@
 #include "Transform.h"
 #include "InputController.h"
 #include "Skeleton2D.h"
+#include "LightBlocker.h"
 
 #include "lights/OmniLight.h"
 #include "lights/SpotLight.h"
@@ -21,7 +22,6 @@
 Game::Game()
 	: m_gameConfig("config.cfg")
 {
-
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -57,6 +57,7 @@ bool Game::Init()
 		m_world.AddComponent<core::ecs::Light>(entity, omni);
 	}
 
+	/*
 	{
 		auto entity = m_world.CreateEntity();
 		auto p = m_world.AddComponent<ecs::Transform>(entity);
@@ -65,13 +66,33 @@ bool Game::Init()
 		s->Init("goblingirl", m_fs["goblins-ffd.atlas"], m_fs["goblins-ffd.json"]);
 		s->SetAnimation("walk");
 		p->SetPosition(glm::vec3(300, 300, 0));
+
+		s->Dettach("left hand item");
+
+		auto b = m_world.AddComponent<ecs::LightBlocker>(entity);
+		
+		core::Wall w;
+		w.pt1 = glm::vec2(100, 100);
+		w.pt2 = glm::vec2(100, 300);
+		b->wall.push_back(w);
+
+		core::Wall w1;
+		w1.pt1 = glm::vec2(100, 100);
+		w1.pt2 = glm::vec2(300, 100);
+		b->wall.push_back(w1);
+
+		core::Wall w2;
+		w2.pt1 = glm::vec2(300, 100);
+		w2.pt2 = glm::vec2(300, 300);
+		b->wall.push_back(w2);
 	}
+	*/
 
 	m_world.AddSystem<ecs::InputSystem>();
 	m_world.AddSystem<ecs::MovementSystem>();
 	m_world.AddSystem<ecs::RenderSystem>();
 	m_world.AddSystem<ecs::AnimationSystem>();
-	m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(50, 50, 50));
+	//m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(50, 20, 20));
 
 	bool initialized = false;
 	if (m_gameConfig.Init())

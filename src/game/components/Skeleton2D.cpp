@@ -20,9 +20,8 @@ namespace ecs
 
 	bool Skeleton2D::Init(const std::string& name, const std::string& atlasName, const std::string& jsonName)
 	{
-		spAtlas* atlas = spAtlas_createFromFile(atlasName.c_str(), 0);
+		spAtlas* atlas = spAtlas_createFromFile(atlasName.c_str(), nullptr);
 		spSkeletonJson* json = spSkeletonJson_create(atlas);
-		json->scale = 1.0f;
 		spSkeletonData* skeletonData = spSkeletonJson_readSkeletonDataFile(json, jsonName.c_str());
 
 		if (!skeletonData)
@@ -65,6 +64,12 @@ namespace ecs
 	bool Skeleton2D::Attach(const std::string& slotName, const std::string& object)
 	{
 		return spSkeleton_setAttachment(m_skeleton->skeleton, slotName.c_str(), object.c_str()) == 0 ? false : true;
+	}
+
+	void Skeleton2D::Dettach(std::string const& slotName)
+	{
+		spSlot* slot = GetSlot(slotName.c_str());
+		spSlot_setAttachment(slot, nullptr);
 	}
 
 	void Skeleton2D::Scale(const sf::Vector2f& scale)

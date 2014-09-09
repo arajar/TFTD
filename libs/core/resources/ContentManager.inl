@@ -32,7 +32,7 @@ namespace core
 	}
 
 	template<>
-	core::Image* ContentManager::Get(const std::string& name)
+	inline core::Image* ContentManager::Get(const std::string& name)
 	{
 		if (m_resources[name] != nullptr)
 		{

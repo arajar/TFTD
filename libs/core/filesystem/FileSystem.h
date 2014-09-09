@@ -5,7 +5,7 @@ namespace core
 	class FileSystem : public std::map < std::string, std::string >
 	{
 	public:
-		FileSystem(const std::string& folder);
+		explicit FileSystem(const std::string& folder);
 		virtual ~FileSystem() {};
 
 		FileSystem(const FileSystem& fs) = delete;

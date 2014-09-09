@@ -18,6 +18,7 @@ namespace ecs
 		void SetAnimation(const std::string& animName);
 		spSlot* GetSlot(const std::string& slot);
 		bool Attach(const std::string& slotName, const std::string& object);
+		void Dettach(const std::string& slotName);
 		void Scale(const sf::Vector2f& scale);
 
 	public:
@@ -26,9 +27,6 @@ namespace ecs
 		virtual void Render(sf::RenderTarget& tex) override;
 		virtual void RenderDebug(sf::RenderTarget& tex) override;
 		virtual void SetPosition(const glm::vec3& pos) override;
-
-	public:
-		void SetCallback(std::function<void(spAnimationState* state, int trackIndex, spEventType type, spEvent* event, int loopCount)> callback);
 
 	protected:
 		spine::SkeletonDrawable* m_skeleton;

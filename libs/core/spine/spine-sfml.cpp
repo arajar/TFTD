@@ -25,7 +25,7 @@ void _spAtlasPage_createTexture(spAtlasPage* self, const char* path)
 
 void _spAtlasPage_disposeTexture(spAtlasPage* self)
 {
-	delete (sf::Texture*)self->rendererObject;
+	delete static_cast<sf::Texture*>(self->rendererObject);
 }
 
 char* _spUtil_readFile(const char* path, int* length)
@@ -96,8 +96,8 @@ namespace spine
 			sf::Texture* texture = 0;
 			if (attachment->type == SP_ATTACHMENT_REGION)
 			{
-				spRegionAttachment* regionAttachment = (spRegionAttachment*)attachment;
-				texture = (sf::Texture*)((spAtlasRegion*)regionAttachment->rendererObject)->page->rendererObject;
+				spRegionAttachment* regionAttachment = reinterpret_cast<spRegionAttachment*>(attachment);
+				texture = static_cast<sf::Texture*>(static_cast<spAtlasRegion*>(regionAttachment->rendererObject)->page->rendererObject);
 				spRegionAttachment_computeWorldVertices(regionAttachment, slot->bone, worldVertices);
 
 				sf::Uint8 r = static_cast<sf::Uint8>(skeleton->r * slot->r * 255);
@@ -152,13 +152,13 @@ namespace spine
 			}
 			else if (attachment->type == SP_ATTACHMENT_MESH)
 			{
-				spMeshAttachment* mesh = (spMeshAttachment*)attachment;
+				spMeshAttachment* mesh = reinterpret_cast<spMeshAttachment*>(attachment);
 				if (mesh->verticesCount > SPINE_MESH_VERTEX_COUNT_MAX)
 				{
 					continue;
 				}
 
-				texture = (sf::Texture*)((spAtlasRegion*)mesh->rendererObject)->page->rendererObject;
+				texture = static_cast<sf::Texture*>(static_cast<spAtlasRegion*>(mesh->rendererObject)->page->rendererObject);
 				spMeshAttachment_computeWorldVertices(mesh, slot, worldVertices);
 
 				sf::Uint8 r = static_cast<sf::Uint8>(skeleton->r * slot->r * 255);
@@ -184,13 +184,13 @@ namespace spine
 			}
 			else if (attachment->type == SP_ATTACHMENT_SKINNED_MESH)
 			{
-				spSkinnedMeshAttachment* mesh = (spSkinnedMeshAttachment*)attachment;
+				spSkinnedMeshAttachment* mesh = reinterpret_cast<spSkinnedMeshAttachment*>(attachment);
 				if (mesh->uvsCount > SPINE_MESH_VERTEX_COUNT_MAX)
 				{
 					continue;
 				}
 
-				texture = (sf::Texture*)((spAtlasRegion*)mesh->rendererObject)->page->rendererObject;
+				texture = static_cast<sf::Texture*>(static_cast<spAtlasRegion*>(mesh->rendererObject)->page->rendererObject);
 				spSkinnedMeshAttachment_computeWorldVertices(mesh, slot, worldVertices);
 
 				sf::Uint8 r = static_cast<sf::Uint8>(skeleton->r * slot->r * 255);

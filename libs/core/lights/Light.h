@@ -1,35 +1,6 @@
 #pragma once
 
 //////////////////////////////////////////////////////////////////////////
-struct Wall
-{
-	Wall(sf::Vector2f p1, sf::Vector2f p2)
-	{
-		pt1 = p1;
-		pt2 = p2;
-	}
-
-	sf::Vector2f pt1;
-	sf::Vector2f pt2;
-};
-
-//////////////////////////////////////////////////////////////////////////
-
-struct WallEntity
-{
-	WallEntity(int id)
-	{
-		m_ID = id;
-	}
-
-	int GetID() { return m_ID; }
-
-private:
-
-	int m_ID;
-};
-
-//////////////////////////////////////////////////////////////////////////
 
 enum class LightType
 {
@@ -41,7 +12,7 @@ enum class LightType
 
 enum class LightQuality
 {
-	ULTRA = 18,
+	ULTRA = 64,
 	GOOD = 14,
 	FAIR = 10,
 	LOW = 6,
@@ -52,6 +23,13 @@ enum class LightQuality
 
 namespace core
 {
+	struct Wall
+	{
+		glm::vec2 pt1;
+		glm::vec2 pt2;
+	};
+
+
 	// Interface for Lights
 	class ILight
 	{

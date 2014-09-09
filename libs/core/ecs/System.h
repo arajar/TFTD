@@ -18,12 +18,12 @@ namespace core
 		{
 			ID(System);
 		public:
-			System(World& world);
+			explicit System(World& world);
 			virtual ~System();
 
 		public:
-			virtual const SystemType GetType() const;
-			virtual const int GetPriority() const;
+			virtual SystemType GetType() const;
+			virtual int GetPriority() const;
 
 		public:
 			virtual void Process(sf::RenderTarget& target) {};

@@ -1,11 +1,12 @@
 #include "core.h"
 #include "Engine.h"
 #include "ContentManager.h"
+#include <states/StateDefault.h>
 
 namespace core
 {
 	const int Engine::FPS = 60;
-	const sf::Time Engine::TIME_PER_FRAME = sf::seconds(1.f / Engine::FPS);
+	const sf::Time Engine::TIME_PER_FRAME = sf::seconds(1.f / FPS);
 	sf::Font Engine::DEBUG_FONT = sf::Font();
 
 	Engine::Engine()
@@ -39,7 +40,7 @@ namespace core
 		
 		// Singleton creation
 		new ContentManager(m_fs);
-
+		m_stateMgr.SetState<StateDefault>();
 		return true;
 	}
 
@@ -50,6 +51,11 @@ namespace core
 			m_renderTarget.create(width, height);
 			m_window->create(sf::VideoMode(width, height), "tftd", sf::Style::Close | sf::Style::Resize);
 		}
+	}
+
+	void Engine::HandleEvents(sf::Keyboard::Key key, bool isPressed)
+	{
+		m_stateMgr.HandleEvents(key, isPressed);
 	}
 
 	bool Engine::Run()
@@ -75,6 +81,7 @@ namespace core
 
 	void Engine::Update(sf::Time deltaTime)
 	{
+		m_stateMgr.Update(deltaTime);
 	}
 
 	void Engine::ProcessEvents()
@@ -99,6 +106,22 @@ namespace core
 			case sf::Event::Closed:
 				m_window->close();
 				break;
+				case sf::Event::LostFocus: break;
+				case sf::Event::GainedFocus: break;
+				case sf::Event::TextEntered: break;
+				case sf::Event::MouseWheelMoved: break;
+				case sf::Event::MouseButtonPressed: break;
+				case sf::Event::MouseButtonReleased: break;
+				case sf::Event::MouseMoved: break;
+				case sf::Event::MouseEntered: break;
+				case sf::Event::MouseLeft: break;
+				case sf::Event::JoystickButtonPressed: break;
+				case sf::Event::JoystickButtonReleased: break;
+				case sf::Event::JoystickMoved: break;
+				case sf::Event::JoystickConnected: break;
+				case sf::Event::JoystickDisconnected: break;
+				case sf::Event::Count: break;
+				default: break;
 			}
 		}
 	}
@@ -107,6 +130,7 @@ namespace core
 	{
 		BeginFrame();
 		RenderFrame();
+		m_stateMgr.Render(m_renderTarget);
 		EndFrame();
 	}
 

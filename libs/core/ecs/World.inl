@@ -97,7 +97,7 @@ namespace core
 			auto itBegin = m_entities.begin();
 			auto itEnd = m_entities.end();
 
-			for (itBegin; itBegin != itEnd; itBegin++)
+			for (itBegin; itBegin != itEnd; ++itBegin)
 			{
 				auto comp = (*itBegin).second;
 				for (int i = 0; i < comp.size(); i++)
@@ -120,7 +120,7 @@ namespace core
 			auto itBegin = m_entities.begin();
 			auto itEnd = m_entities.end();
 
-			for (itBegin; itBegin != itEnd; itBegin++)
+			for (itBegin; itBegin != itEnd; ++itBegin)
 			{
 				auto comp = (*itBegin).second;
 				Component* a = nullptr;

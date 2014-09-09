@@ -18,6 +18,8 @@ public:
 class ITransform
 {
 public:
+	virtual ~ITransform() {}
+
 	virtual void SetPosition(const glm::vec3& position)
 	{
 		m_position = position;
@@ -62,5 +64,7 @@ protected:
 class IText
 {
 public:
+	virtual ~IText() {}
+
 	virtual void Write(const std::string& text, const glm::ivec2& pos) = 0;
 };

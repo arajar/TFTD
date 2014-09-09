@@ -10,7 +10,7 @@ namespace core
 	class ContentManager : public Singleton<ContentManager>
 	{
 	public:
-		ContentManager(FileSystem& fs);
+		explicit ContentManager(FileSystem& fs);
 		virtual ~ContentManager();
 
 	public:

@@ -5,6 +5,7 @@
 #include "lights/Light.h"
 
 #include "Transform.h"
+#include "LightBlocker.h"
 
 namespace ecs
 {
@@ -48,6 +49,18 @@ namespace ecs
 		m_renderImg.clear(m_ambientColor);
 		m_blurEffect.setParameter("offset", 0.005f * m_lightSmooth);
 
+		std::vector<core::Wall> walls;
+
+		for (auto e : m_world.GetEntitiesWith<ecs::LightBlocker>())
+		{
+			auto& w = *m_world.GetComponent<ecs::LightBlocker>(e);
+
+			for (auto& wall : w.wall)
+			{
+				walls.push_back(wall);
+			}
+		}
+
 		for (auto e : m_world.GetEntitiesWith<ecs::Transform, core::ecs::Light>())
 		{
 			auto& p = *m_world.GetComponent<ecs::Transform>(e);
@@ -56,7 +69,7 @@ namespace ecs
 			if (light.light->IsActive())
 			{
 				light.light->SetPosition(glm::vec2(p.GetPosition()));
-				light.light->Generate(m_wall);
+				light.light->Generate(walls);
 				light.light->Render(&m_renderImg);
 			}
 		}

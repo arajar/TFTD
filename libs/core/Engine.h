@@ -1,4 +1,5 @@
 #pragma once
+#include <states/StateManager.h>
 
 namespace core
 {
@@ -15,14 +16,14 @@ namespace core
 		virtual ~Engine();
 
 	public:
-		bool Init();
+		virtual bool Init();
 		bool Run();
 
 	public:
 		void Resize(int width, int height);
 
 	public:
-		virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed) = 0;
+		virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed);
 		virtual void Update(sf::Time elapsedTime);
 
 	protected:
@@ -43,17 +44,21 @@ namespace core
 		bool m_running;
 
 	protected:
+		StateManager			m_stateMgr;
+
+	protected:
 		sf::RenderWindow*		m_window;
 		sf::RenderTexture		m_renderTarget;
 		sf::Text				m_statisticsText;
 		sf::Time				m_statisticsUpdateTime;
 
-		std::size_t				m_statisticsNumFrames;
+		size_t					m_statisticsNumFrames;
 
 		sf::Clock				m_clock;
 		sf::Time				m_timeSinceLastUpdate;
 	
 	protected:
 		FileSystem m_fs;
+
 	};
 }

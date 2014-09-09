@@ -9,9 +9,8 @@ namespace core
 	class GameException : public runtime_error
 	{
 	public:
-		GameException(const std::string& error);
-
-		GameException(const char* error);
+		explicit GameException(const std::string& error);
+		explicit GameException(const char* error);
 
 		virtual ~GameException() throw();
 	};

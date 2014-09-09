@@ -16,12 +16,15 @@ namespace core
 	{
 		m_shapes.clear();
 
-		float buf = (glm::pi<float>() * 2) / (float)m_quality;
+		float buf = (glm::pi<float>() * 2) / static_cast<float>(m_quality);
 
-		for (int i = 0; i < (int)m_quality; i++)
+		for (int i = 0; i < static_cast<int>(m_quality); i++)
 		{
-			glm::vec2 p1(glm::vec2((float)((float)m_radius * cos((float)i * buf)), (float)((float)m_radius * sin((float)i * buf))));
-			glm::vec2 p2(glm::vec2((float)((float)m_radius * cos((float)(i + 1) * buf)), (float)((float)m_radius * sin((float)(i + 1) * buf))));
+			const float ii = static_cast<float>(i);
+			const float radius = static_cast<float>(m_radius);
+
+			glm::vec2 p1(glm::vec2(radius * cos(ii * buf), radius * sin(ii * buf)));
+			glm::vec2 p2(glm::vec2(radius * cos((ii + 1) * buf), radius * sin((ii + 1) * buf)));
 			AddTriangle(p1, p2, 0, walls);
 		}
 	}

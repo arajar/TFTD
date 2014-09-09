@@ -119,7 +119,7 @@ namespace core
 	//////////////////////////////////////////////////////////////////////////
 
 
-	void LightBase::AddTriangle(glm::vec2 pt1, glm::vec2 pt2, int minimum_wall, std::vector <Wall> &m_wall)
+	void LightBase::AddTriangle(glm::vec2 pt1, glm::vec2 pt2, int minimum_wall, std::vector<Wall> &m_wall)
 	{
 		int w = minimum_wall;
 
@@ -201,21 +201,21 @@ namespace core
 		m_shapes.back().setPrimitiveType(sf::Triangles);
 
 		m_shapes.back().append(sf::Vertex(sf::Vector2f(m_position.x, m_position.y), sf::Color(
-			(int)(m_intensity * m_color.r / 255),
-			(int)(m_intensity * m_color.g / 255),
-			(int)(m_intensity * m_color.b / 255))));
+			static_cast<int>(m_intensity * m_color.r / 255),
+			static_cast<int>(m_intensity * m_color.g / 255),
+			static_cast<int>(m_intensity * m_color.b / 255))));
 
 		intensity = m_intensity - sqrt(pt1.x * pt1.x + pt1.y * pt1.y) * m_intensity / m_radius;
 		m_shapes.back().append(sf::Vertex(sf::Vector2f(m_position.x + pt1.x, m_position.y + pt1.y), sf::Color(
-			(int)(intensity * m_color.r / 255),
-			(int)(intensity * m_color.g / 255),
-			(int)(intensity * m_color.b / 255))));
+			static_cast<int>(intensity * m_color.r / 255),
+			static_cast<int>(intensity * m_color.g / 255),
+			static_cast<int>(intensity * m_color.b / 255))));
 
 		intensity = m_intensity - sqrt(pt2.x * pt2.x + pt2.y * pt2.y) * m_intensity / m_radius;
 		m_shapes.back().append(sf::Vertex(sf::Vector2f(m_position.x + pt2.x, m_position.y + pt2.y), sf::Color(
-			(int)(intensity * m_color.r / 255),
-			(int)(intensity * m_color.g / 255),
-			(int)(intensity * m_color.b / 255))));
+			static_cast<int>(intensity * m_color.r / 255),
+			static_cast<int>(intensity * m_color.g / 255),
+			static_cast<int>(intensity * m_color.b / 255))));
 	}
 
 	//////////////////////////////////////////////////////////////////////////

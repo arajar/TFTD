@@ -9,7 +9,7 @@ namespace ecs
 	class MovementSystem : public core::ecs::System
 	{
 	public:
-		MovementSystem(core::ecs::World& world);
+		explicit MovementSystem(core::ecs::World& world);
 
 	public:
 		virtual void Process(sf::Time deltaTime) override;
