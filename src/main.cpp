@@ -3,7 +3,7 @@
 
 int main(int argc, char* argv[])
 {
-	Game g;
+	Game g("Tesseract");
 	if (g.Init())
 	{
 		g.Run();

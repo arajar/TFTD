@@ -12,7 +12,8 @@ public:
 public:
 	void Update(sf::Time deltaTime);
 	void Render(sf::RenderTarget& target);
-	void HandleEvents(sf::Keyboard::Key key, bool isPressed);
+	void RenderDebug(sf::RenderTarget& target);
+	void HandleEvents(const core::WindowEvent event);
 
 public:
 	State* GetCurrentState();
@@ -20,17 +21,20 @@ public:
 	template<typename S>
 	S* GetState();
 
-	template<typename S>
-	void SetState();
+	template<typename S, class... _Types>
+	void SetState(_Types&&... _Args);
 
-	template<typename S>
-	void PushState();
-	
+	template<typename S, class... _Types>
+	void PushState(_Types&&... _Args);
+
 	bool PopState();
 	void PopAllStates();
-	
+
 	template<typename S>
 	bool IsStateInStack() const;
+
+	template<typename S>
+	bool CurrentStateIs() const;
 
 public:
 	std::vector<State*> m_states;
@@ -55,17 +59,17 @@ S* StateManager::GetState()
 
 //////////////////////////////////////////////////////////////////////////
 
-template <typename S>
-void StateManager::SetState()
+template <typename S, class ... _Types>
+void StateManager::SetState(_Types&&... _Args)
 {
 	PopAllStates();
-	PushState<S>();
+	PushState<S>(std::forward<_Types>(_Args)...);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-template <typename S>
-void StateManager::PushState()
+template <typename S, class ... _Types>
+void StateManager::PushState(_Types&&... _Args)
 {
 	if (!m_states.empty())
 	{
@@ -78,15 +82,16 @@ void StateManager::PushState()
 		if (IsStateInStack<S>())
 		{
 			auto state = GetState<S>();
+			m_states.push_back(state);
 			state->Resume();
+			return;
 		}
 	}
-	else
-	{
-		auto state = new S;
-		m_states.push_back(state);
-		state->Start();
-	}
+
+	S* state = new S(_Args...);
+	m_states.push_back(state);
+	state->Start();
+	state->Resume();
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -103,6 +108,14 @@ bool StateManager::IsStateInStack() const
 	}
 
 	return false;
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+template <typename S>
+bool StateManager::CurrentStateIs() const
+{
+	return dynamic_cast<S*>(m_states.back()) != nullptr;
 }
 
 //////////////////////////////////////////////////////////////////////////

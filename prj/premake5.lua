@@ -6,10 +6,10 @@ include "../tools/premake/common/"
 
 -------------------------------------------------------------------------------
 
-solution "TFTD"
+solution "Tesseract"
 
 	math.randomseed(string.hash(solution().name))
-  	startproject "terror"
+  	startproject "Tesseract"
 	addCommonConfig()
 
 	configuration "Debug"
@@ -226,7 +226,7 @@ project "imgui"
 
 -------------------------------------------------------------------------------
 
-project "terror"
+project "Tesseract"
 
 	targetdir("../release/" )
 	kind "ConsoleApp"
@@ -280,7 +280,7 @@ project "terror"
 		"exit 0",
 	}
 
-	targetname( "TFTD" .. _OPTIONS["arch"])
+	targetname( "Tesseract" .. _OPTIONS["arch"])
 
 	configuration "Debug"
 		buildoptions { "/MDd" }

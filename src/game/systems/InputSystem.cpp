@@ -11,15 +11,17 @@ namespace ecs
 		m_type = core::ecs::SystemType::EventHandler;
 	}
 
-	void InputSystem::Process(sf::Keyboard::Key key, bool isPressed)
+	void InputSystem::Process(const core::WindowEvent windowEvent)
 	{
+		bool isPressed = windowEvent.event.type == sf::Event::KeyPressed ? true : false;
+		
 		for (auto e : m_world.GetEntitiesWith<ecs::InputController, ecs::Direction>())
 		{
 			auto &dir = *m_world.GetComponent<ecs::Direction>(e);
 
 			float x = 0;
 			float y = 0;
-			switch (key)
+			switch (windowEvent.event.key.code)
 			{
 			case sf::Keyboard::Left:
 				x = isPressed ? -1.0f : 0.0f;

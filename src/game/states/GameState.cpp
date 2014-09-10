@@ -1,18 +1,22 @@
 #pragma once
+#include "pch.h"
 #include <SFML/Window/Keyboard.hpp>
 #include <SFML/System/Time.hpp>
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <memory>
+#include <lights/OmniLight.h>
 
 ///////////////////////////////////////////////////////////////////////////////
 
-class StateDefault : public State
+class GameState : public State
 {
 public:
-	virtual ~StateDefault() {}
+	virtual ~GameState() {}
 
 	virtual void Start() override
-	{}
+	{
+		m_debugText.setFont(core::Engine::DEBUG_FONT);
+	}
 
 	virtual void Resume() override
 	{}
@@ -20,7 +24,7 @@ public:
 	virtual void Suspend() override
 	{}
 
-	virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed) override
+	virtual void HandleEvents(const core::WindowEvent event) override
 	{}
 
 	virtual void Update(sf::Time deltaTime) override
@@ -28,6 +32,12 @@ public:
 
 	virtual void Render(sf::RenderTarget& target) override
 	{}
+
+	void RenderDebug(sf::RenderTarget& target) override
+	{
+		m_debugText.setString("Default");
+		target.draw(m_debugText);
+	}
 
 	virtual void End() override
 	{}

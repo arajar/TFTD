@@ -11,28 +11,35 @@ StateManager::StateManager()
 
 void StateManager::Update(sf::Time deltaTime)
 {
-	m_states.front()->Update(deltaTime);
+	m_states.back()->Update(deltaTime);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 void StateManager::Render(sf::RenderTarget& target)
 {
-	m_states.front()->Render(target);
+	m_states.back()->Render(target);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void StateManager::HandleEvents(sf::Keyboard::Key key, bool isPressed)
+void StateManager::RenderDebug(sf::RenderTarget& target)
 {
-	m_states.front()->HandleEvents(key, isPressed);
+	m_states.back()->RenderDebug(target);
+}
+
+//////////////////////////////////////////////////////////////////////////
+
+void StateManager::HandleEvents(const core::WindowEvent event)
+{
+	m_states.back()->HandleEvents(event);
 }
 
 //////////////////////////////////////////////////////////////////////////
 
 State* StateManager::GetCurrentState()
 {
-	return m_states.front();
+	return m_states.back();
 }
 
 //////////////////////////////////////////////////////////////////////////

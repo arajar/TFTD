@@ -1,5 +1,6 @@
 #pragma once
 #include "ecs\Component.h"
+#include <Events.h>
 
 namespace core
 {
@@ -21,7 +22,7 @@ namespace core
 		public:
 			void Update(sf::Time deltaTime);
 			void Render(sf::RenderTarget& target);
-			void HandleEvents(sf::Keyboard::Key key, bool isPressed);
+			void HandleEvents(const core::WindowEvent event);
 
 		public:
 			const Entity::Id CreateEntity();

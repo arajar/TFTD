@@ -9,7 +9,7 @@
 class Game : public core::Engine
 {
 public:
-	Game();
+	Game(const std::string& name);
 	virtual ~Game();
 
 	Game(const Game&) = delete; // Disallow copying
@@ -19,8 +19,7 @@ public:
 	virtual bool Init() override;
 
 public:
-	virtual void HandleEvents(sf::Keyboard::Key key, bool isPressed) override;
-	virtual void Update(sf::Time deltaTime) override;
+	virtual void HandleEvents(const core::WindowEvent event) override;
 
 protected:
 	virtual void RenderFrame() override;
@@ -34,6 +33,9 @@ private:
 
 private:
 	core::ecs::World m_world;
+
+private:
+	bool m_debugModeEnabled;
 };
 
 ///////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- surfaces declaration -->
+	<surfaces>	
+		<surface id="0" image="black.png" />
+		<surface id="1" image="tile-rock-0001.png" />
+		<surface id="2" image="tile-rock-0004.png" />
+		<surface id="3" image="tile-rock-0002.png" />
+		<surface id="4" image="tile-rock-0003.png" />
+		<surface id="5" image="bg-rock-rep-0002.png" />
+		<surface id="6" image="bg-rock-rep-0003.png" />
+		<surface id="7" image="bg-rock-0001.png" />
+		<surface id="8" image="bg-rock-0002.png" />
+		<surface id="9" image="bg-rock-0003.png" />
+		<surface id="10" image="bg-rock-0004.png" />
+		<surface id="11" image="bg-rock-0005.png" />
+		<surface id="12" image="bg-rock-0006.png" />
+		<surface id="13" image="bg-rock-0018.png" />
+		<surface id="14" image="bg-rock-0019.png" />
+		<surface id="15" image="bg-rock-0024.png" />
+		<surface id="16" image="bg-rock-0025.png" />
+		<surface id="17" image="forest-bg-rock-0005.png" />
+		<surface id="18" image="grass-bed-0001.png" />
+		<surface id="19" image="grass-rock-0001.png" />
+		<surface id="20" image="plant-0006.png" />
+		<surface id="21" image="plant-0001.png" />
+		<surface id="22" image="plant-0002.png" />
+		<surface id="23" image="plant-0003.png" />
+		<surface id="24" image="plant-0004.png" />
+		<surface id="25" image="plant-0005.png" />
+		<surface id="26" image="testbed-03.png" />
+		<surface id="27" image="testbed-01.png" />
+		<surface id="28" image="testbed-02.png" />
+		<surface id="29" image="cathedral-pillar-0001.png" />
+		<surface id="30" image="memory-crystal-0001.png" />
+		<surface id="31" image="pot-0001.png" />
+		<surface id="32" image="forest-rock-0002.png" />
+		<surface id="33" image="plant-0009.png" />
+		<surface id="34" image="plant-0010.png" />
+		<surface id="35" image="plant-0014.png" />
+		<surface id="36" image="grass-tile-0001.png" />
+		<surface id="37" image="plant-0011.png" />
+		<surface id="38" image="bg-light-0003.png" />
+		<surface id="39" image="bg-light-0001.png" />
+		<surface id="40" image="bg-light-0002.png" />
+		<surface id="41" image="darkness-0002.png" />
+		<surface id="42" image="darkness-0003.png" />
+		<surface id="43" image="darkness-0004.png" />
+		<surface id="44" image="darkness-0001.png" />
+		<surface id="45" image="dark-full.png" />
+		<surface id="46" image="dark-little.png" />
+		<surface id="47" image="dark-partial.png" />
+	</surfaces>
+</resources>

@@ -10,6 +10,6 @@ namespace ecs
 		InputSystem(core::ecs::World& world);
 
 	public:
-		virtual void Process(sf::Keyboard::Key key, bool isPressed) override;
+		virtual void Process(const core::WindowEvent event) override;
 	};
 }

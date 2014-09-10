@@ -55,5 +55,4 @@ namespace core
 
 		return img;
 	}
-
 }

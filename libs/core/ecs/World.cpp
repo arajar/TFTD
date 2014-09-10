@@ -38,13 +38,13 @@ namespace core
 			}
 		}
 
-		void World::HandleEvents(sf::Keyboard::Key key, bool isPressed)
+		void World::HandleEvents(const core::WindowEvent event)
 		{
 			for (auto& system : m_systems)
 			{
 				if (system->GetType() == SystemType::EventHandler)
 				{
-					system->Process(key, isPressed);
+					system->Process(event);
 				}
 			}
 		}

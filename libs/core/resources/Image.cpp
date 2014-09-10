@@ -19,6 +19,7 @@ namespace core
 		if (b)
 		{
 			m_sprite.setTexture(m_tex);
+			m_size = glm::vec2(m_sprite.getTexture()->getSize().x, m_sprite.getTexture()->getSize().y);
 		}
 		
 		return b;
