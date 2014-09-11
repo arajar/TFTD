@@ -12,7 +12,7 @@ namespace core
 		static const sf::Time TIME_PER_FRAME;
 
 	public:
-		Engine(const std::string& name);
+		explicit Engine(const std::string& name);
 		virtual ~Engine();
 
 	public:
@@ -23,7 +23,7 @@ namespace core
 		void Resize(int width, int height);
 
 	public:
-		virtual void HandleEvents(const core::WindowEvent event);
+		virtual void HandleEvents(core::WindowEvent event);
 		virtual void Update(sf::Time elapsedTime);
 
 	protected:
@@ -51,6 +51,7 @@ namespace core
 
 	protected:
 		sf::RenderWindow*		m_window;
+		sf::View				m_gameView;
 		sf::RenderTexture		m_renderTarget;
 		sf::Time				m_statisticsUpdateTime;
 

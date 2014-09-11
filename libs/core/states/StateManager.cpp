@@ -30,7 +30,7 @@ void StateManager::RenderDebug(sf::RenderTarget& target)
 
 //////////////////////////////////////////////////////////////////////////
 
-void StateManager::HandleEvents(const core::WindowEvent event)
+void StateManager::HandleEvents(core::WindowEvent event)
 {
 	m_states.back()->HandleEvents(event);
 }

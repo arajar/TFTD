@@ -6,6 +6,7 @@ namespace ecs
 {
 	class RenderSystem : public core::ecs::System
 	{
+		NAME(RenderSystem)
 	public:
 		RenderSystem(core::ecs::World& world);
 
@@ -15,6 +16,7 @@ namespace ecs
 
 	class RenderDebugSystem : public core::ecs::System
 	{
+		NAME(RenderDebugSystem)
 	public:
 		RenderDebugSystem(core::ecs::World& world);
 	

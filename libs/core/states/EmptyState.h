@@ -23,7 +23,7 @@ public:
 	virtual void Suspend() override
 	{}
 
-	virtual void HandleEvents(const core::WindowEvent event) override
+	virtual void HandleEvents(core::WindowEvent event) override
 	{}
 
 	virtual void Update(sf::Time deltaTime) override

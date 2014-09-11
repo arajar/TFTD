@@ -15,12 +15,19 @@ namespace core
 			None,
 		};
 
+#define NAME(x) public: const std::string GetName() { return #x; }
+
+
 		class System
 		{
 			ID(System);
+
 		public:
 			explicit System(World& world);
 			virtual ~System();
+
+		public:
+			virtual const std::string GetName() = 0;
 
 		public:
 			virtual SystemType GetType() const;

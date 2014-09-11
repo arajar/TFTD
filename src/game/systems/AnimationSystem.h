@@ -6,6 +6,8 @@ namespace ecs
 {
 	class AnimationSystem : public core::ecs::System
 	{
+		NAME(AnimationSystem)
+
 	public:
 		AnimationSystem(core::ecs::World& world);
 

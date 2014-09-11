@@ -19,7 +19,7 @@ public:
 	virtual bool Init() override;
 
 public:
-	virtual void HandleEvents(const core::WindowEvent event) override;
+	virtual void HandleEvents(core::WindowEvent event) override;
 
 protected:
 	virtual void RenderFrame() override;

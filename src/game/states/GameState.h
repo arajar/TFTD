@@ -75,7 +75,7 @@ public:
 		//m_world.RemoveSystem<ecs::LightSystem>();
 	}
 
-	virtual void HandleEvents(const core::WindowEvent event) override
+	virtual void HandleEvents(core::WindowEvent event) override
 	{
 		State::HandleEvents(event);
 	}

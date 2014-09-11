@@ -20,7 +20,7 @@ public:
 	virtual void End() = 0;
 
 public:
-	virtual void HandleEvents(const core::WindowEvent event)
+	virtual void HandleEvents(core::WindowEvent event)
 	{
 		m_world.HandleEvents(event);
 	}

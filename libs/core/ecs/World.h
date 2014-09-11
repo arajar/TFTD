@@ -22,7 +22,7 @@ namespace core
 		public:
 			void Update(sf::Time deltaTime);
 			void Render(sf::RenderTarget& target);
-			void HandleEvents(const core::WindowEvent event);
+			void HandleEvents(core::WindowEvent event);
 
 		public:
 			const Entity::Id CreateEntity();
@@ -62,6 +62,14 @@ namespace core
 
 			template<typename S>
 			bool RemoveSystem();
+
+		public:
+			bool Save() const;
+			bool Load() const;
+
+		private:
+			bool Serialize(const std::string& file) const;
+			bool Deserialize(const std::string& file) const;
 
 		private:
 			typedef std::vector<Component*> ComponentArray;

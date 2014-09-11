@@ -36,12 +36,14 @@ bool Game::Init()
 		initialized = true;
 	}
 
+	m_world.Save();
+
 	return initialized;
 }
 
 //////////////////////////////////////////////////////////////////////////
 
-void Game::HandleEvents(const core::WindowEvent windowEvent)
+void Game::HandleEvents(core::WindowEvent windowEvent)
 {
 	Engine::HandleEvents(windowEvent);
 	m_stateMgr.HandleEvents(windowEvent);

@@ -6,6 +6,8 @@ namespace ecs
 {
 	class InputSystem : public core::ecs::System
 	{
+		NAME(InputSystem)
+
 	public:
 		InputSystem(core::ecs::World& world);
 

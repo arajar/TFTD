@@ -33,11 +33,16 @@ namespace core
 
 		m_renderTarget.create(640, 480);
 		m_window->setFramerateLimit(60);
-		
+
+		sf::Vector2f size = sf::Vector2f(m_window->getSize());
+		m_gameView.setSize(size);
+		m_gameView.setCenter(size*0.5f);
+		//m_window->setView(m_gameView);
+
 		m_fs.Init();
 
 		DEBUG_FONT.loadFromFile(m_fs["sansation.ttf"]);
-		
+
 		// Singleton creation
 		new ContentManager(m_fs);
 
@@ -51,10 +56,11 @@ namespace core
 			TODO("Figure a better method to handle window resizing, as this method destroys and recreates the window");
 			m_renderTarget.create(width, height);
 			m_window->create(sf::VideoMode(width, height), m_appName, sf::Style::Close | sf::Style::Resize);
+			m_gameView.setSize(width, height);
 		}
 	}
 
-	void Engine::HandleEvents(const core::WindowEvent event)
+	void Engine::HandleEvents(core::WindowEvent event)
 	{
 		m_stateMgr.HandleEvents(event);
 	}
@@ -87,8 +93,8 @@ namespace core
 
 	void Engine::ProcessEvents()
 	{
-		core::WindowEvent coreEvent(m_window);
-
+		core::WindowEvent coreEvent(m_window, m_gameView, m_renderTarget);
+		
 		sf::Event event;
 		while (m_window->pollEvent(event))
 		{
@@ -97,19 +103,21 @@ namespace core
 			switch (event.type)
 			{
 			case sf::Event::Resized:
-				Resize(m_window->getSize().x, m_window->getSize().y);
+				Resize(event.size.width, event.size.height);
 				break;
 
 			case sf::Event::Closed:
 				m_window->close();
 				break;
-				default: break;
+			default: break;
 			}
 		}
 	}
 
 	void Engine::Render()
 	{
+		//m_window->setView(m_gameView);
+		m_renderTarget.setView(m_gameView);
 		BeginFrame();
 		RenderFrame();
 		m_stateMgr.Render(m_renderTarget);
@@ -125,7 +133,7 @@ namespace core
 	void Engine::EndFrame()
 	{
 		m_renderTarget.display();
-		
+
 		sf::Sprite s(m_renderTarget.getTexture());
 		m_window->draw(s);
 

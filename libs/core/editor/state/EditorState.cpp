@@ -41,44 +41,70 @@ namespace editor
 	{
 	}
 
-	void EditorState::HandleEvents(const core::WindowEvent windowEvent)
+	void EditorState::HandleEvents(core::WindowEvent windowEvent)
 	{
 		State::HandleEvents(windowEvent);
 
 		switch (windowEvent.event.type)
 		{
-			case sf::Event::MouseWheelMoved: 
+		case sf::Event::MouseWheelMoved:
+		{
+			int next = windowEvent.event.mouseWheel.delta > 0 ? 1 : -1;
+
+			m_selectedTile = (m_selectedTile + next) % (m_tileSet->GetTiles().size() - 1);
+			m_selectedNode->SetSurface(m_tileSet->GetTiles()[m_selectedTile]);
+
+/*		
+			if (windowEvent.event.mouseWheel.delta < 0)
 			{
-				int next = windowEvent.event.mouseWheel.delta > 0 ? 1 : -1;
-
-				m_selectedTile = (m_selectedTile + next) % (m_tileSet->GetTiles().size()-1);
-				m_selectedNode->SetSurface(m_tileSet->GetTiles()[m_selectedTile]);
-
-				break;
+				windowEvent.gameView.zoom(2.0f);
+				zoomLevel *= 2.0f;
 			}
-			case sf::Event::MouseButtonPressed:
+			else
 			{
-				if (!m_mousePressed)
+				windowEvent.gameView.zoom(0.5f);
+				zoomLevel *= 0.5f;
+			}
+*/
+
+			break;
+		}
+		case sf::Event::MouseButtonPressed:
+		{
+			if (!m_mousePressed)
+			{
+				m_mousePressed = true;
+				m_mouseClickedPos = sf::Mouse::getPosition(*windowEvent.window);
+
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				{
-					m_mousePressed = true;
 					m_map->CloneNode(m_selectedNode);
 				}
-				break;
 			}
-			case sf::Event::MouseButtonReleased: 
-			{
-				m_mousePressed = false;
-				break; 
-			}
-			default: break;
+			break;
+		}
+		case sf::Event::MouseButtonReleased:
+		{
+			m_mousePressed = false;
+			break;
+		}
+		default: break;
 		}
 
-		int x = sf::Mouse::getPosition(*windowEvent.window).x;
-		int y = sf::Mouse::getPosition(*windowEvent.window).y;
+		sf::Vector2f pos = sf::Vector2f(sf::Mouse::getPosition(*windowEvent.window) - m_mouseCurrentPos);
+
+		if (m_mousePressed && sf::Mouse::isButtonPressed(sf::Mouse::Middle))
+		{
+			windowEvent.gameView.move(-1.f * pos * zoomLevel);
+		}
+
+		m_mouseCurrentPos = sf::Mouse::getPosition(*windowEvent.window);
+
+		int x = windowEvent.target.mapPixelToCoords(sf::Mouse::getPosition(*windowEvent.window)).x;
+		int y = windowEvent.target.mapPixelToCoords(sf::Mouse::getPosition(*windowEvent.window)).y;
 		x -= m_selectedNode->GetSurface()->image->GetSize().x / 2;
 		y -= m_selectedNode->GetSurface()->image->GetSize().y / 2;
 		m_selectedNode->SetPos(glm::vec2(x, y));
-
 	}
 
 	void EditorState::Update(sf::Time deltaTime)

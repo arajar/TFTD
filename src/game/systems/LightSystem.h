@@ -10,6 +10,8 @@ namespace ecs
 {
 	class LightSystem : public core::ecs::System
 	{
+		NAME(LightSystem)
+
 	public:
 		explicit LightSystem(core::ecs::World& world);
 		~LightSystem();

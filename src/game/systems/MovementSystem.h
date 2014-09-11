@@ -8,6 +8,8 @@ namespace ecs
 {
 	class MovementSystem : public core::ecs::System
 	{
+		NAME(MovementSystem)
+
 	public:
 		explicit MovementSystem(core::ecs::World& world);
 

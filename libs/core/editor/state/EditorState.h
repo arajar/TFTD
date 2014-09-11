@@ -19,7 +19,7 @@ namespace editor
 		virtual void Resume() override;
 		virtual void Suspend() override;
 		virtual void End() override;
-		virtual void HandleEvents(const core::WindowEvent event) override;
+		virtual void HandleEvents(core::WindowEvent event) override;
 		virtual void Update(sf::Time deltaTime) override;
 		virtual void Render(sf::RenderTarget& target) override;
 		virtual void RenderDebug(sf::RenderTarget& target) override;
@@ -33,6 +33,10 @@ namespace editor
 		editor::Node*		m_selectedNode;
 		int					m_selectedTile;
 		bool				m_mousePressed;
+
+		sf::Vector2i		m_mouseCurrentPos;
+		sf::Vector2i		m_mouseClickedPos;
+		float zoomLevel = 1.0;
 	};
 }
 

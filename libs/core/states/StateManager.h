@@ -13,7 +13,7 @@ public:
 	void Update(sf::Time deltaTime);
 	void Render(sf::RenderTarget& target);
 	void RenderDebug(sf::RenderTarget& target);
-	void HandleEvents(const core::WindowEvent event);
+	void HandleEvents(core::WindowEvent event);
 
 public:
 	State* GetCurrentState();
