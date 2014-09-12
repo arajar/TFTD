@@ -7,3 +7,6 @@
 [submodule "libs/sfml"]
 	path = libs/sfml
 	url = https://github.com/sfml/sfml
+[submodule "libs/sfgui"]
+	path = libs/sfgui
+	url = https://github.com/TankOs/SFGUI
