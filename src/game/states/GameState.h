@@ -63,7 +63,7 @@ public:
 		m_world.AddSystem<ecs::MovementSystem>();
 		m_world.AddSystem<ecs::RenderSystem>();
 		m_world.AddSystem<ecs::AnimationSystem>();
-		//m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(50, 20, 20));
+		m_world.AddSystem<ecs::LightSystem>()->SetGlobalAmbientColor(sf::Color(50, 20, 20));
 	}
 
 	virtual void Suspend() override
@@ -72,7 +72,7 @@ public:
 		m_world.RemoveSystem<ecs::MovementSystem>();
 		m_world.RemoveSystem<ecs::RenderSystem>();
 		m_world.RemoveSystem<ecs::AnimationSystem>();
-		//m_world.RemoveSystem<ecs::LightSystem>();
+		m_world.RemoveSystem<ecs::LightSystem>();
 	}
 
 	virtual void HandleEvents(core::WindowEvent event) override

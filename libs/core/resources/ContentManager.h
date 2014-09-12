@@ -17,9 +17,6 @@ namespace core
 		template<class Resource>
 		Resource* Get(const std::string& name);
 		
-		template<>
-		Image* Get(const std::string& name);
-
 		void Unload();
 
 	protected:
