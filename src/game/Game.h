@@ -24,10 +24,6 @@ public:
 protected:
 	virtual void RenderFrame() override;
 
-protected:
-	bool InitGUI();
-	static void GUI_RenderDrawLists(ImDrawList** const cmd_lists);
-
 private:
 	GameConfig m_gameConfig;
 

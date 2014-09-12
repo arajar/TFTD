@@ -23,7 +23,6 @@ solution "Tesseract"
 	local CORE      = LIBS.."core"
 	local SFML      = LIBS.."sfml"
 	local GLM	    = LIBS.."glm"
-	local IMGUI     = LIBS.."imgui"
 	local GLEW      = LIBS.."glew-1.10.0"
 	local PUGIXML   = LIBS.."pugixml"
 	local SPINE     = LIBS.."spine"
@@ -148,7 +147,6 @@ project "core"
 		CORE.."/",
 		CORE.."/**",
 		GLM.."/glm",
-		IMGUI,
 		GLEW.."/include",
 		PUGIXML.."/src",
 		SFML.."/include",
@@ -166,7 +164,6 @@ project "core"
 	{
 		"glew32s.lib",
 		"opengl32",
-		"imgui",
 		"pugixml",
 		"spine",
 		"sfml",
@@ -182,52 +179,7 @@ project "core"
 
 -------------------------------------------------------------------------------
 
-project "imgui"
-	targetdir(BUILD_DIR)
-	kind "StaticLib"
-
-	files
-	{
-		IMGUI .. "/**",
-	}
-
-	includedirs
-	{
-		IMGUI,
-	}
-
-	excludes 
-	{
-		IMGUI.."/examples",
-		IMGUI.."/examples/**",
-		IMGUI.."/web",
-		IMGUI.."/web/**",
-	}
-
-	configuration "Debug"
-		buildoptions { "/MDd" }
-		defines
-		{
-			"_DEBUG",
-			"_SCL_SECURE_NO_WARNINGS",
-			"_CRT_SECURE_NO_WARNINGS",
-		}
-
-	configuration "Release"
-		buildoptions { "/MD" }
-		defines
-		{
-			"NDEBUG",
-			"_SECURE_SCL=0",
-			"_SECURE_SCL_THROWS=0",
-			"_SCL_SECURE_NO_WARNINGS",
-			"_CRT_SECURE_NO_WARNINGS",
-		}
-
--------------------------------------------------------------------------------
-
 project "Tesseract"
-
 	targetdir("../release/" )
 	kind "ConsoleApp"
 	pchheader "pch.h"
@@ -245,7 +197,6 @@ project "Tesseract"
 		"../src/**",
 		CORE,
 		GLM.."/glm",
-		IMGUI,
 		GLEW.."/include",
 		SFML.."/include",
 		SPINE.."/include",
@@ -262,7 +213,6 @@ project "Tesseract"
 	{
 		"glew32s.lib",
 		"opengl32",
-		"imgui",
 		"core",
 		"sfml",
 		"pugixml",
